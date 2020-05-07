@@ -1,0 +1,15 @@
+{
+	"scss": null,
+	"js": {
+		"use": [
+			{
+				"key": "/resources/lang/Languages.js",
+				"position": null
+			}
+		],
+		"dependencies": null
+	},
+	"srcPlugin": 1,
+	"view": null,
+	"copyFiles": null
+}

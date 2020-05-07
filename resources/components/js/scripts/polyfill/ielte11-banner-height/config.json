@@ -1,0 +1,13 @@
+{
+	"scss": null,
+	"js": {
+		"use": [
+			{
+				"key": "/js/ielte11-banner-height.js"
+			}
+		],
+		"dependencies": null
+	},
+	"view": null,
+	"copyFiles": null
+}

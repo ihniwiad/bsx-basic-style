@@ -1,0 +1,39 @@
+{
+	"srcPlugin": 0,
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_variables.scss",
+				"position": null
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_dummy.scss",
+				"position": null
+			}
+		],
+		"dependencies": null
+	},
+	"js": {
+		"lang": [
+			{
+				"key": "/dummy.properties",
+				"path": "/lang"
+			}
+		]
+	},
+	"view": null,
+	"copyFiles": [
+		{
+			"src": "/resources/documents/fonts/bla",
+			"dest": "/resources/documents/fonts/bla"
+		}
+	],
+	"lang": [
+		{
+			"key": "/dummy.properties",
+			"path": "/lang"
+		}
+	]
+}

@@ -1,0 +1,22 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_to-top-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_to-top-mixins.scss"
+			},
+			{
+				"key": "/scss/_to-top.scss"
+			}
+		],
+		"atf": [
+			{
+				"key": "/scss/_to-top-atf.scss"
+			}
+		]
+	}
+}

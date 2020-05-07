@@ -1,0 +1,22 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_variables.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/node_modules/font-awesome/scss/_font-awesome.scss"
+			}
+		]
+	},
+	"js": null,
+	"view": null,
+	"copyFiles": [
+		{
+			"src": "/node_modules/font-awesome/fonts",
+			"dest": "/assets/fonts/font-awesome"
+		}
+	]
+}

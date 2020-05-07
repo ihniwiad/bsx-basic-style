@@ -1,0 +1,19 @@
+{
+	"scss": {
+		"use": [
+			{
+				"key": "components-variables"
+			}
+		],
+		"atf": [
+			{
+				"key": "components-variables"
+			}
+		],
+		"dependencies": null
+	},
+	"js": null,
+	"view": null,
+	"srcPlugin": 1,
+	"copyFiles": null
+}

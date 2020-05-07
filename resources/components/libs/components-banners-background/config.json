@@ -1,0 +1,22 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_background-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_background-mixins.scss"
+			},
+			{
+				"key": "/scss/_background.scss"
+			}
+		],
+		"atf": [
+			{
+				"key": "/scss/_background-atf.scss"
+			}
+		]
+	}
+}

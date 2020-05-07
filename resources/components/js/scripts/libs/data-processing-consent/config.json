@@ -1,0 +1,13 @@
+{
+	"scss": null,
+	"js": {
+		"use": [
+			{
+				"key": "/js/data-processing-consent.js"
+			}
+		],
+		"dependencies": null
+	},
+	"view": null,
+	"copyFiles": null
+}

@@ -1,0 +1,13 @@
+{
+	"scss": null,
+	"js": {
+		"use": [
+			{
+				"key": "/js/validate-form.js"
+			}
+		],
+		"dependencies": null
+	},
+	"view": null,
+	"copyFiles": null
+}

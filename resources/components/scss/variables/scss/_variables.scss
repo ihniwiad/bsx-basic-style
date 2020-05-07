@@ -1,0 +1,251 @@
+// COLORS
+
+
+// SCSS VARIABLES
+
+
+// PATHS
+
+// images
+$image-path:				"../img/" !default;
+
+// fonts
+$fontPath:					"../fonts" !default;
+
+
+// CI COLORS
+
+$ci-color-1: #0275D8 !default; // blue
+$ci-color-2: #7FC5FF !default; // light blue
+$ci-color-3: #FF003B !default; // red
+$ci-color-4: #757575 !default; // grey
+$ci-color-5: #00467F !default; // dark blue
+$ci-color-6: #eee !default; // middle grey
+$ci-color-7: #f8f9fa !default; // slight grey
+
+
+// BOOTSTRAP COLORS
+
+// gray
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+// colored
+$blue:    $ci-color-1 !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     $ci-color-3 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffce36 !default;
+$green:   #4cad33 !default;
+$teal:    #20c997 !default;
+$cyan:    #17a2b8 !default;
+
+// themes
+$primary:       $ci-color-1 !default;
+$secondary:     $ci-color-2 !default;
+
+// states
+$success:       $green !default;
+$info:          $ci-color-2 !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $ci-color-7 !default;
+$dark:          $ci-color-5 !default;
+
+
+// CLASS NAMES / IDENTIFIER
+
+$touchDeviceIdentifier:			"html.touchevents" !default;
+
+
+// TRANSITION
+
+$bsx-basic-transition:			all 0.3s ease !default;
+
+
+// Z-INDEX
+
+$bsx-dropdown-z-index:			1000 !default;
+
+
+// RESPONSIVE TYPO
+
+$bsx-responsive-font-sizes: (
+	xs: 15px,
+	sm: 15px,
+	md: 16px,
+	lg: 17px,
+	xl: 18px
+) !default;
+$bsx-progressive-font-scales: (
+	xs: 0.5,
+	sm: 0.625,
+	md: 0.75,
+	lg: 0.875,
+	xl: 1
+) !default;
+
+
+// BORDER
+
+$bsx-basic-border-width: 		1px !default;
+$border-strong-width:			.2rem !default;
+$border-heavy-width:			.5rem !default;
+
+
+// TYPO
+
+$font-family-sans-serif:  		Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif !default;
+$font-size-base:				1rem !default;
+$line-height-base:				1.5 !default;
+
+$icon-font-family:				FontAwesome !default;
+$bsx-icon-font-selector:		".fa" !default;
+$font-weight-base:              300 !default;
+$font-weight-semi:              400 !default;
+$font-weight-bold:              500 !default;
+$body-color:					$gray-800 !default;
+$headings-font-weight:          500 !default;
+$headings-color:                $gray-800 !default;
+$lead-font-size:                1.25rem !default;
+$badge-font-weight:				400 !default;
+
+
+// TEXT SHADOW
+
+$text-shadow-dark:              0 0 0.1em rgba(0, 0, 0, 0.33) !default;
+$text-shadow-darker:            0 0 0.5em rgba(0, 0, 0, 0.8), 0 0 0.1em rgba(0, 0, 0, 0.5), 0 0 1px rgba(0, 0, 0, 0.5) !default;
+$text-shadow-darkest:           0 0 0.5em #000, 0 0 0.1em rgba(0, 0, 0, 1), 0 0 1px rgba(0, 0, 0, 1) !default;
+
+
+// BUTTON (ICON, OUTLINE)
+
+$button-distance-icon-text:     0.75em !default;
+$button-icon-font-selector:     ".fa" !default;
+$button-outline-border-width:   2px !default;
+
+
+// CARD
+
+$card-border-radius:            0 !default;
+
+
+// VIDEO
+
+// play button overlay
+$play-button-width:				2.5em !default;
+$play-button-height:            1.5em !default;
+$play-button-padding-left:      0.1em !default;
+$play-button-font-size:         2rem !default;
+$play-button-border-radius:     0.125em !default;
+$play-button-bg-color:          rgba($black, 0.4) !default;
+$play-button-bg-color-hover:    rgba($primary, 0.75) !default;
+$play-button-color:             rgba($white, 0.8) !default;
+$play-button-color-hover:       $white !default;
+$play-button-shadow-size:       0.25em !default;
+$play-button-shadow-color:      rgba($white, 0.25) !default;
+$play-button-transition:        $bsx-basic-transition !default;
+
+
+// CUSTOM FORM
+
+$custom-range-thumb-width: 		1.5rem !default;
+$custom-range-thumb-height: 	$custom-range-thumb-width !default;
+$custom-range-track-height:		$custom-range-thumb-width / 3 !default;
+
+// overwrite bootstrap style which doesn't fit to standard input styling
+$input-btn-focus-width:       		.2rem !default; // @bootstrap dependant
+$custom-select-focus-box-shadow:    0 0 0 $input-btn-focus-width rgba($primary, .25) !default;
+
+
+// BREADCRUMB
+
+$breadcrumb-divider:            	"»" !default;
+$breadcrumb-item-padding:       	0.25rem !default;
+$breadcrumb-link-color:         	$gray-600 !default;
+
+
+// TABLE
+
+$table-cell-padding-sm: 			.35rem .25rem !default;
+
+
+// ===================================================================================
+
+// INCLUDE BOOTSTRAP VARIABLES (TO BE ABLE TO DEFINE OWN VARIABLES BASED ON BOOTSTRAP)
+
+@import "./../../../../../node_modules/bootstrap/scss/functions";
+@import "./../../../../../node_modules/bootstrap/scss/variables";
+
+// ===================================================================================
+
+
+// BOOTSTRAP BASED VARIABLES
+
+
+// CONTAINER
+
+$bsx-sm-container-width: 	map-get($container-max-widths, "sm") !default;
+
+
+// GRID
+
+$bsx-grid-gutter-width: 	$grid-gutter-width !default;
+
+
+// FONT
+
+$bsx-body-color:				$body-color !default;
+$bsx-font-family-sans-serif: 	$font-family-sans-serif !default;
+$bsx-font-size-base:			$font-size-base !default;
+$bsx-line-height-base:			$line-height-base !default;
+
+$bsx-small-font-size:			$small-font-size !default;
+
+
+// LINK
+
+$bsx-link-color: 				$link-color !default;
+$bsx-link-decoration: 			$link-decoration !default;
+
+
+// BORDER
+
+$bsx-border-color:				$border-color !default;
+
+$bsx-border-radius: 			$border-radius !default;
+$bsx-hr-border-color: 			$hr-border-color !default;
+
+$bsx-card-border-width: 		$card-border-width !default;
+$bsx-card-border-color: 		$card-border-color !default;
+$bsx-card-border-width: 		$card-border-width !default;
+
+
+// P (STANDARD MARGIN BOTTOM)
+
+$bsx-paragraph-margin-bottom:	$paragraph-margin-bottom !default;
+
+
+// FORM
+
+$bsx-custom-range-thumb-width:	$custom-range-thumb-width !default;
+
+
+// DROPDOWN
+
+$bsx-dropdown-min-width:		$dropdown-min-width !default;
+
+
+
+

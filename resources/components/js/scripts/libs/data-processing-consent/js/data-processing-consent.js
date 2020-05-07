@@ -1,0 +1,277 @@
+/*
+
+<!-- button to show consent popup -->
+<button class="btn btn-primary" data-fn="data-processing-popup-trigger">Show consent banner</button>
+
+
+<!-- consent popup -->		
+<div class="fixed-banner fixed-banner-bottom fixed-banner-closable bg-secondary d-none" tabindex="-1" role="dialog" hidden data-fn="cookie-related-elem" data-tg="data-processing-popup" data-fn-options="{ cookieName: 'dataProcessingConsentBannerHidden', cookieExpiresDays: 365, hiddenCookieValue: '1', hiddenClass: 'd-none', remoteOpenable: true }">
+			
+	<div class="container py-3">
+		
+		<form data-fn="data-processing-form" data-fn-options="{ cookieName: 'dataProcessingConsent', cookieExpiresDays: 365, categoryInputSelector: '[data-g-tg=category-input]' }">
+            <div class="form-row align-items-center">
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="data-processing-consent-0-0" value="analytics" data-g-tg="category-input">
+                    <label class="form-check-label" for="data-processing-consent-0-0">Analytics</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="data-processing-consent-1-0" value="other-category" data-g-tg="category-input">
+                    <label class="form-check-label" for="data-processing-consent-1-0">Other category</label>
+                </div>
+
+                <div class="col-auto">
+                    <button class="btn btn-outline-primary btn-sm" type="submit" data-fn="cookie-related-elem-close" data-g-fn="save">Save</button>
+                </div>
+
+                <div class="col-auto">
+                    <button class="btn btn-primary btn-sm" data-fn="cookie-related-elem-close" data-g-fn="allow-all">Allow all</button>
+                </div>
+
+            </div>
+        </form>
+		
+	</div>
+	
+</div>
+
+
+<!-- hidden scripts -->
+<div aria-hidden="true" data-tg="data-processing-consent-content">
+
+    <script type="text/x-template" data-category="analytics" data-position="header" src="https://cdn01.plentymarkets.com/avw8j9fg70hi/frontend/tmp/dev_testing/testing.js"></script>
+    <script type="text/x-template" data-category="analytics" data-position="header">
+        console.log( '      -> from script: inline testing script executed' );
+    </script>
+    
+    <script type="text/x-template" data-category="other-category" src="https://cdn01.plentymarkets.com/avw8j9fg70hi/frontend/tmp/dev_testing/testing-2.js"></script>
+    <script type="text/x-template" data-category="other-category">
+        console.log( '      -> from script: inline testing 2 script executed' );
+    </script>
+	
+</div>
+
+
+*/
+
+
+( function( $, Utils ) {
+
+	/*
+		TODO: 
+			- copy all (but type!) script attributes (async, etc.) from src scripts (is this really necessary when new script is beeing applied by already runnig script?)
+			- (?) option to append to head
+	*/
+	
+	var defaultConsentStatus = {
+		"cats": []
+	};
+	var renewCookie = false;
+	var showConsentHint = false;
+	
+	var $consentForm = Utils.$functionElems.filter( '[data-fn="data-processing-form"]' );
+	var $consentBanner = Utils.$targetElems.filter( '[data-tg="data-processing-popup"]' );
+	
+	// get categories, read cookie, set checkboxes according to cookie value
+	
+	var options = $consentForm.getOptionsFromAttr();
+	var bannerOptions = $consentBanner.getOptionsFromAttr();
+	
+	// initial get cookie
+	var consentCookieStr = Utils.CookieHandler.getCookie( options.cookieName );
+	
+	// initial consent status
+	if ( consentCookieStr ) {
+		consentStatus = $.extend( {}, defaultConsentStatus, JSON.parse( consentCookieStr ) );
+	}
+	else {
+		consentStatus = $.extend( {}, defaultConsentStatus );
+		renewCookie = true;
+	}
+	
+	
+	var $categoryIputs = $consentForm.find( options.categoryInputSelector );
+	var categories = [];
+	$categoryIputs.each( function() {
+		var currentCategory = $( this ).attr( 'value' );
+		categories.push( currentCategory );
+		
+		// add to consent object
+		var currentCatFound = false;
+		for ( var i = 0; i < consentStatus.cats.length; i++ ) {
+			if ( consentStatus.cats[ i ].name == currentCategory ) {
+				currentCatFound = true;
+				
+				if ( consentStatus.cats[ i ].cons == 1 ) {
+					// set checked
+					$( this ).prop( 'checked', true );
+				}
+			}
+		}
+		if ( ! currentCatFound ) {
+			// add new category to cookie, show hint
+			consentStatus.cats.push( { name: currentCategory, cons: 0 } );
+			showConsentHint = true;
+		}
+	} );
+	
+	
+	// do update only if changed to keep max age
+	
+	if ( renewCookie ) {
+		// initial cookie update
+		Utils.CookieHandler.setCookie( options.cookieName, JSON.stringify( consentStatus ), 365, '/' );
+	}
+    
+    
+    // bind allow all button (before bind form submit)
+	var $saveAllButton = $consentForm.find( '[data-g-fn="allow-all"]' );
+	
+	$saveAllButton.on( 'click', function( event ) {
+		
+        event.preventDefault();
+        
+        $categoryIputs.each( function() {
+        	$( this ).prop( 'checked', true );
+        } );
+        
+        $consentForm.trigger( 'submit' );
+	} );
+	
+	
+	// bind form sumbit
+    $consentForm.submit( function( event ) {
+        event.preventDefault();
+        $categoryIputs.each( function() {
+
+        	var currentValue = $( this ).attr( 'value' );
+        	var currentChecked = $( this ).is( ':checked' );
+        	
+        	// update consent object
+			for ( var i = 0; i < consentStatus.cats.length; i++ ) {
+				if ( consentStatus.cats[ i ].name == currentValue ) {
+        			consentStatus.cats[ i ].cons = ( currentChecked ) ? 1 : 0;
+				}
+			}
+        } );
+        
+        
+        // if changes 
+		var consentCookieStr = Utils.CookieHandler.getCookie( options.cookieName );
+        
+        
+        if ( JSON.stringify( consentStatus ) != consentCookieStr ) {
+        	
+        	// remember consent status before update cookie
+        	var beforeChangeConsentStatus = JSON.parse( consentCookieStr );
+        	
+			// user interactes cookie update
+			Utils.CookieHandler.setCookie( options.cookieName, JSON.stringify( consentStatus ), 365, '/' );
+        
+        
+        	for ( var i = 0; i < consentStatus.cats.length; i++ ) {
+				// if anything denied which was allowed before do reload
+				if ( consentStatus.cats[ i ].cons == 0 && ( beforeChangeConsentStatus.cats[ i ] !== undefined && beforeChangeConsentStatus.cats[ i ].cons == 1 ) ) {
+					
+					// do reload
+					location.reload();
+					
+					break;
+				}
+        		
+        		// if anything allowed which was dynied before do apply
+        		if ( consentStatus.cats[ i ].cons == 1 && ( ( beforeChangeConsentStatus.cats[ i ] !== undefined && beforeChangeConsentStatus.cats[ i ].cons == 0 ) || beforeChangeConsentStatus.cats[ i ] === undefined ) ) {
+        			
+        			// use function for following tasks
+        			applyCategory( consentStatus.cats[ i ].name );
+        		}
+        	}
+					
+        }
+        else {
+			// no changes, do nothing
+        }
+        
+    } );
+        
+        
+    // initial apply of script content if consent given via cookie
+    for ( var i = 0; i < consentStatus.cats.length; i++ ) {
+    	
+		if ( consentStatus.cats[ i ].cons == 1 ) {
+			
+			// apply contents
+			applyCategory( consentStatus.cats[ i ].name );
+			
+		}
+		
+    }
+	
+	
+    
+    // manage popup display
+    if ( showConsentHint ) {
+
+    	// set cookie value to make visible (in case popup will be inited later)
+        Utils.CookieHandler.setCookie( bannerOptions.cookieName, 0, bannerOptions.cookieExpiresDays, '/' );
+    	
+    	// wait for CookieRelatedElem to be inited
+    	window.setTimeout( function() {
+    		$consentBanner.trigger( 'CookieRelatedElem.open' );
+    	} );
+    }
+    
+    
+    // button to show popup manually
+    var $showConsentBannerButton = Utils.$functionElems.filter( '[data-fn="data-processing-popup-trigger"]' );
+    
+    $showConsentBannerButton.on( 'click', function() {
+    	$consentBanner.trigger( 'CookieRelatedElem.open' );
+    } );
+	
+	
+	// functions
+	
+	function applyCategory( category ) {
+		
+		// find related templates
+		var $relatedContents = Utils.$targetElems.filter( '[data-tg="data-processing-consent-content"]' ).find( '[data-category="' + category + '"]' );
+		
+		// activate related templates
+		$relatedContents.each( function() {
+			var $elem = $( this );
+			if ( $elem[0].nodeName.toLowerCase() == 'script' ) {
+				if ( $elem.attr( 'src' ) !== undefined ) {
+					// is src script
+
+					// append src script
+					appendSrcScript( $elem.attr( 'src' ) );
+				}
+				else {
+					// is inline script
+					
+					// append inline script
+					appendInlineScript( $elem.html() );
+				}
+			}
+		} );
+		
+	}
+	
+	function appendSrcScript( src, appendTo ) {
+		var currentAppendTo = ( !! appendTo ) ? appendTo : 'body';
+		var script = document.createElement( 'script' );
+	    script.setAttribute( 'src', src );
+	    document[ currentAppendTo ].appendChild( script );
+	}
+	
+	function appendInlineScript( textContent, appendTo ) {
+		var currentAppendTo = ( !! appendTo ) ? appendTo : 'body';
+		var script = document.createElement( 'script' );
+		script.textContent = textContent;
+	    document[ currentAppendTo ].appendChild( script );
+	}
+	
+} )( jQuery, BSX_UTILS );

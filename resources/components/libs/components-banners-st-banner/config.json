@@ -1,0 +1,19 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_st-banner-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_st-banner.scss"
+			}
+		],
+		"atf": [
+			{
+				"key": "/scss/_st-banner-atf.scss"
+			}
+		]
+	}
+}

@@ -1,0 +1,30 @@
+// global mixins
+
+
+
+@mixin bsx-hover() {
+ 	&:hover { @content; }
+}
+
+@mixin bsx-hover-focus() {
+	&:hover,
+	&:focus {
+		@content;
+	}
+}
+
+@mixin bsx-plain-hover-focus() {
+	&,
+	&:hover,
+	&:focus {
+		@content;
+	}
+}
+
+@mixin bsx-hover-focus-active() {
+	&:hover,
+	&:focus,
+	&:active {
+		@content;
+	}
+}

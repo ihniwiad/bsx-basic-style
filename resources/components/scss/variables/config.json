@@ -1,0 +1,17 @@
+{
+	"scss": {
+		"use": [
+			{
+				"key": "/scss/_variables.scss"
+			}
+		],
+		"atf": [
+			{
+				"key": "/scss/_variables.scss"
+			}
+		]
+	},
+	"js": null,
+	"view": null,
+	"copyFiles": null
+}

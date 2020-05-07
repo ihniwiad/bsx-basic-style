@@ -1,0 +1,21 @@
+{
+	"php": {
+		"classes": [
+			{
+				"key": "/php/basic-footer-example-footer-001.php"
+			}
+		]
+	},
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_basic-footer-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_basic-footer.scss"
+			}
+		]
+	}
+}

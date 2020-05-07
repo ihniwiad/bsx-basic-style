@@ -1,0 +1,542 @@
+// style
+
+
+// TOGGLER
+
+@include bsx-appnav-navigation(mobile) {
+	.bsx-appnav-navbar-toggler {
+		min-width: unset;
+		min-height: unset;
+		display: inline-block;
+		padding: $bsx-appnav-link-py $bsx-appnav-link-px;
+		font-size: $navbar-toggler-font-size;
+		line-height: 1;
+		color: $bsx-appnav-color;
+		cursor: pointer;
+
+		@include bsx-hover-focus {
+			background-color: $bsx-appnav-nav-desktop-level-1-hover-link-bg-color;
+			color: $bsx-appnav-hover-color;
+			text-decoration: none;
+		}
+
+		&::before {
+			content: none;
+			display: none;
+		}
+	}
+}
+
+
+// NAVBAR COLLAPSE
+
+// mobile navbar collapse
+
+@include bsx-appnav-navigation(mobile) {
+
+	.bsx-appnav-navbar-collapse {
+		position: fixed;
+		z-index: $bsx-appnav-mobile-collapse-z-index;
+		display: flex;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: $bsx-appnav-mobile-collapse-width;
+		max-width: $bsx-appnav-mobile-collapse-max-width;
+		background-color: $bsx-appnav-mobile-collapse-bg-color;
+		flex-direction: column-reverse;
+		justify-content: baseline;
+		transition: $bsx-appnav-mobile-collapse-transition;
+		transform: translate3d(-100%, 0px, 0px);
+
+		&.show {
+			transform: translate3d(0, 0, 0);
+		}
+	}
+	
+}
+
+
+// NAVBAR NAV
+
+.bsx-appnav-navbar {
+
+	// opened dropdown link
+	.show {
+
+		> a {
+			background-color: $bsx-appnav-nav-desktop-level-1-hover-link-bg-color;
+			color: $bsx-appnav-hover-color;
+
+			// icon hover style
+
+			#{$bsx-icon-font-selector} {
+				color: $bsx-appnav-icon-hover-color;
+			}
+		}
+
+	}
+
+}
+
+// mobile navbar nav
+
+@include bsx-appnav-navigation(mobile) {
+	
+	.bsx-appnav-navbar-nav:not(.bsx-allmedia-dropdown-nav) {
+
+		// main mobile styles
+		@include make-mobile-looking-navbar-nav();
+
+	}
+
+}
+
+// desktop navbar nav
+
+@include bsx-appnav-navigation(desktop) {
+
+	.bsx-appnav-navbar-nav:not(.bsx-allmedia-dropdown-nav) {
+
+		// main desktop styles
+		@include make-desktop-looking-navbar-nav();
+
+	}
+	
+}
+
+
+// NAVBAR NAV (LINK & ICON & LEVEL 2 LIST)
+
+.bsx-appnav-navbar-nav {
+
+	li {
+
+		// link (all)
+		a {
+			font-weight: $bsx-appnav-basic-font-weight;
+			color: $bsx-appnav-color;
+
+			// TODO: include responsive padding
+			//padding-left: $navbar-padding-x;
+			//padding-right: $navbar-padding-x;
+
+			//@include make-responsive-nav-padding();
+
+			@include bsx-hover-focus {
+				background-color: $bsx-appnav-nav-link-mobile-hover-bg-color;
+				//background-color: $bsx-appnav-nav-desktop-level-1-hover-link-bg-color;
+				color: $bsx-appnav-hover-color !important;
+				text-decoration: none;
+			}
+			&:active {
+				color: $bsx-appnav-active-color;
+			}
+
+		}
+
+	}
+
+	// only level 1
+
+	> li {
+
+		// link (level 1)
+		> a {
+
+			// reset atf text bubble
+			&::before {
+				content: none;
+			}
+
+			// desktop level 1 uppercase
+			@include bsx-appnav-navigation(desktop) {
+
+				@if $bsx-appnav-desktop-level-1-uppercase {
+					text-transform: uppercase;
+				}
+
+			}
+
+			// icon
+
+			#{$bsx-icon-font-selector} {
+				width: 16px;
+				color: $bsx-appnav-icon-color;
+			}
+
+			@include bsx-hover-focus {
+				color: $bsx-appnav-hover-color;
+
+				#{$bsx-icon-font-selector} {
+					color: $bsx-appnav-icon-hover-color;
+				}
+			}
+			&:active {
+				color: $bsx-appnav-active-color;
+
+				#{$bsx-icon-font-selector} {
+					color: $bsx-appnav-icon-active-color;
+				}
+			}
+		}
+
+		// level 2 list
+
+		> ul {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+	}
+
+}
+
+
+// MAIN NAVBAR NAV
+
+// mobile main navbar nav
+
+@include bsx-appnav-navigation(mobile) {
+
+	.bsx-appnav-navbar-nav.bsx-main-navbar-nav {
+		position: relative;
+		width: 100%;
+		overflow-y: auto;
+		border-top: $bsx-appnav-mobile-link-border-width solid $bsx-appnav-mobile-link-border-color;
+
+		// each level has individual overflow
+		&,
+		& ul {
+			height: 100%;
+			overflow-x: hidden;
+		}
+		& ul {
+			overflow-y: hidden;
+		}
+
+		// hide overflow if subleve open
+		&.has-show,
+		& ul.has-show,
+		& li.show > ul.has-show {
+			overflow-y: hidden;
+		}
+
+		li {
+			a {
+				border-bottom: $bsx-appnav-mobile-link-border-width solid $bsx-appnav-mobile-link-border-color;
+				//background-clip: padding-box;
+			}
+		}
+
+		// only level 1
+
+		> li {
+
+			// link (level 1)
+			> a {
+
+				// reset atf text bubble
+				position: unset;
+				min-width: unset;
+				color: $bsx-appnav-color;
+
+			}
+		}
+
+		// only subnav in main nav
+		li > ul {
+			position: absolute;
+			display: block;
+			left: 100%;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			background-color: $bsx-appnav-mobile-collapse-bg-color;
+			transition: $bsx-appnav-mobile-collapse-transition;
+			transform: translate3d(0, 0, 0);
+		}
+
+		li.show > ul {
+			transform: translate3d(-100%, 0, 0);
+			// allow overflow-y only while open
+			overflow-y: auto;
+		}
+
+	}
+	
+}
+
+
+// desktop main navbar nav (current link underline)
+
+@if $bsx-appnav-use-current-link-underline {
+
+	@include bsx-appnav-navigation(desktop) {
+
+		.bsx-appnav-navbar-nav {
+
+			// only level 1
+
+			> li {
+
+				// link (level 1)
+				& > a {
+
+					//position: relative;
+
+					// nav line
+					&::before {
+						content: "";
+						position: absolute;
+						left: $bsx-appnav-link-px - $bsx-appnav-desktop-level-1-active-link-underline-overlap-x;
+						right: $bsx-appnav-link-px - $bsx-appnav-desktop-level-1-active-link-underline-overlap-x;
+						bottom: $bsx-appnav-desktop-level-1-active-link-underline-bottom;
+						height: 0.125em;
+						background: $bsx-appnav-desktop-level-1-active-link-underline-color;
+						border-radius: 0.125em;
+						transform: scaleX(0);
+						transition: transform 0.2s ease-in-out 0s;
+					}
+
+				}
+
+				&.active a {
+					// nav line
+					&::before {
+						transform: scaleX(1);
+					}
+				}
+
+				a.bsx-appnav-dropdown-toggle {
+					// nav line
+					&::before {
+						right: $bsx-appnav-link-px - $bsx-appnav-desktop-level-1-active-link-underline-overlap-x + ( ($bsx-appnav-caret-width + $bsx-appnav-link-text-caret-spacer) * $bsx-appnav-caret-scale );
+					}
+				}
+			}
+
+		}
+		
+	}
+
+}
+
+
+// BACK BUTTON
+
+@include bsx-appnav-navigation(mobile) {
+
+	.bsx-appnav-back-link {
+		a {
+			&::before {
+				display: inline-block;
+				//width: 0;
+				height: #{$font-size-base}em;
+				//vertical-align: middle;
+				color: $bsx-appnav-icon-color;
+				content: $bsx-appnav-arrow-left-icon;
+				font-family: $bsx-appnav-icon-font-family;
+				margin-right: $bsx-appnav-link-icon-text-spacer;
+			}
+			&::after {
+				content: attr(data-label);
+			}
+			&:focus {
+				outline: 0;
+			}
+			@include bsx-hover-focus {
+				&::before {
+					color: $bsx-appnav-icon-hover-color;
+				}
+			}
+			&:active {
+				&::before {
+				 color: $bsx-appnav-icon-active-color;
+				}
+			}
+		}
+	}
+
+}
+
+@include bsx-appnav-navigation(desktop) {
+
+	.bsx-appnav-back-link {
+		display: none;
+	}
+}
+
+
+// DROPDOWN TOGGLE
+
+.bsx-appnav-dropdown-toggle {
+	&::after {
+		display: inline-block;
+		//width: 0;
+		height: $font-size-base;
+		vertical-align: middle;
+		margin-left: $bsx-appnav-link-icon-text-spacer;
+		content: $bsx-appnav-arrow-right-icon;
+		font-family: $bsx-appnav-icon-font-family;
+		color: $bsx-appnav-icon-color;
+	}
+	&:focus {
+		outline: 0;
+	}
+	@include bsx-hover-focus {
+		&::after {
+			color: $bsx-appnav-icon-hover-color;
+		}
+	}
+	&:active {
+		&::after {
+			color: $bsx-appnav-icon-active-color;
+		}
+	}
+}
+
+
+// BACKDROP (ONLY MOBILE)
+
+@include bsx-appnav-navigation(mobile) {
+
+	// backdrop
+	.bsx-appnav-collapse-backdrop,
+	.nav-backdrop {
+		display: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	// backdrop main nav
+	.bsx-appnav-navbar-collapse.show ~ .bsx-appnav-collapse-backdrop {
+		position: fixed;
+		display: block;
+		z-index: $bsx-appnav-main-backdrop-z-index;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: $bsx-appnav-main-backdrop-bg-color;
+	}
+
+}
+
+
+// BIGMENU (ONLY DESKTOP)
+
+@include bsx-appnav-navigation(desktop) {
+
+	// bigmenu
+	.bsx-appnav-bigmenu-dropdown {
+		position: static;
+
+		> ul {
+			left: 0;
+			right: 0;
+
+			ul {
+				display: block;
+			}
+		}
+
+		// columns
+
+		&[class*="columns-"] > ul {
+			column-gap: 0;
+		}
+		&.columns-2 > ul {
+			column-count: 2;
+		}
+		&.columns-3 > ul {
+			column-count: 3;
+		}
+		&.columns-4 > ul {
+			column-count: 4;
+		}
+		&.columns-5 > ul {
+			column-count: 5;
+		}
+
+		// bigmenu specials
+
+		> ul {
+
+			> li {
+
+				> a {
+					font-weight: $bsx-appnav-desktop-bigmenu-level-2-font-weight;
+					color: $bsx-appnav-color;
+
+					@include bsx-hover-focus {
+						color: $bsx-appnav-hover-color;
+					}
+					&:active {
+						color: $bsx-appnav-active-color;
+					}
+				}
+				> ul {
+					list-style-type: none;
+					padding: 0;
+				}
+			}
+
+			> li:not(.allow-column-break) {
+				break-inside: avoid-column;
+				overflow: hidden; // force firefox not to break inside column
+			}
+
+			a {
+				padding: $bsx-appnav-desktop-bigmenu-level-2-link-py $bsx-appnav-desktop-bigmenu-level-2-link-px;
+			}
+		}
+
+		// reset – TODO: wtf is this usefull for? disallow desktop bigmenu level 2 selection?
+		/*> ul > li.active > .bsx-appnav-dropdown-toggle:not(:hover):not(:focus) {
+			color: $bsx-appnav-color;
+			background-color: initial;
+		}*/
+	}
+
+}
+
+
+// ICON NAVBAR FILLED (ONLY MOBILE)
+
+.bsx-appnav-nav-fill {
+	> li {
+    	flex: 1 1 auto;
+		text-align: center;
+	}
+}
+
+@include bsx-appnav-navigation(mobile) {
+
+	.bsx-icon-navbar-nav.bsx-appnav-nav-fill {
+		position: relative;
+
+		> li {
+			position: static !important;
+
+			> ul {
+				width: 100%;
+			}
+		}
+	}
+
+}
+
+
+// ALLMEDIA DROPDOWN
+
+// navbar nav
+.bsx-appnav-navbar-nav.bsx-allmedia-dropdown-nav {
+
+	// main desktop styles
+	@include make-desktop-looking-navbar-nav();
+
+}
+
+
+

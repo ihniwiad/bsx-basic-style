@@ -1,0 +1,19 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_sr-only-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_sr-only.scss"
+			}
+		],
+		"atf": [
+			{
+				"key": "/scss/_sr-only-atf.scss"
+			}
+		]
+	}
+}

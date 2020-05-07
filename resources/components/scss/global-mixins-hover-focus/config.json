@@ -1,0 +1,14 @@
+{
+	"scss": {
+		"use": [
+			{
+				"key": "/scss/_hover-focus.scss"
+			}
+		],
+		"atf": [
+			{
+				"key": "/scss/_hover-focus.scss"
+			}
+		]
+	}
+}

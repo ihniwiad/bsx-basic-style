@@ -1,0 +1,162 @@
+// atf
+
+
+// ATF 
+
+// filled background & vertical centered items
+[class*="banner-vh-"] {
+	background-color: $bsx-banner-atf-bg-color;
+	display: flex;
+	align-items: center;
+}
+
+
+
+
+
+.banner-inner {
+	width: 100%;
+}
+
+
+// WINDOW RELATIVE BANNER
+
+// NOTE: use only min-height to keep static flow enabled
+// media xs: 6.25rem -> 93.75px | 12.5rem -> 187.5px | 48rem -> 720px | 54rem -> 810px
+// media xl: 6.25rem -> 112.5px | 12.5rem -> 225px | 48rem -> 864px | 54rem -> 972px
+
+// FIX: make IE lte11 happy (requires height to allow align items center, height will be overridden by min-height)
+body.ielte11 [class*="banner-vh-"] {
+	height: 10px;
+
+	//& > .banner-inner {
+	//	height: 10px;
+	//	min-height: 20px;
+	//}
+}
+
+// all: absolute min-height
+[class*="banner-vh-"],
+body.ielte11 [class*="banner-vh-"] {
+	min-height: 18rem;
+
+	//& > .banner-inner {
+	//	height: auto;
+	//}
+}
+
+// FIX: make iOS lte7 happy (interprets vh extremely large)
+body.ioslte7 [class*="banner-vh-"] > .banner-inner {
+	min-height: 20px;
+}
+
+
+// SIZE vh-1
+
+.banner-vh-1,
+body.ielte11 [class*="banner-vh-1"] {
+	min-height: 100vh;
+}
+
+// FIX: make iOS lte7 happy (interprets vh extremely large)
+body.ioslte7 .banner-vh-1 {
+	min-height: 280px;
+}
+@media(min-height: 480px) {
+	body.ioslte7 .banner-vh-1 {
+		min-height: 480px;
+	}
+}
+// ipad portrait chrome 768 - 120 | ipad landscape safari 768 - 96
+@media(min-height: 648px) {
+	body.ioslte7 .banner-vh-1 {
+		min-height: 648px;
+	}
+}
+// ipad portrait chrome 1024 - 120 | ipad portrait safari 1024 - 96
+@media(min-height: 904px) {
+	body.ioslte7 .banner-vh-1 {
+		min-height: 904px;
+	}
+}
+
+// SIZE vh-2
+
+@media(max-height: 900px) {
+	.banner-vh-2,
+	body.ielte11 [class*="banner-vh-2"] {
+		min-height: calc(100vh - 100px);
+
+		//& > .banner-inner {
+		//	min-height: 66vh;
+		//}
+	}
+}
+@media(min-height: 901px) {
+	.banner-vh-2,
+	body.ielte11 [class*="banner-vh-2"] {
+		min-height: 800px;
+	}
+}
+// FIX: make iOS lte7 happy (interprets vh extremely large)
+@media(min-height: 600px) {
+	body.ioslte7 .banner-vh-2 {
+		min-height: 430px;
+	}
+}
+@media(min-height: 768px) {
+	body.ioslte7 .banner-vh-2 {
+		min-height: 550px;
+	}
+}
+@media(min-height: 850px) {
+	body.ioslte7 .banner-vh-2 {
+		min-height: 610px;
+	}
+}
+@media(min-height: 1000px) {
+	body.ioslte7 .banner-vh-2 {
+		min-height: 720px;
+	}
+}
+
+// SIZE vh-3
+
+@media(max-height: 900px) {
+	.banner-vh-3,
+	body.ielte11 [class*="banner-vh-3"] {
+		min-height: calc(100vh - 200px);
+
+		//& > .banner-inner {
+		//	min-height: 72vh;
+		//}
+	}
+}
+@media(min-height: 901px) {
+	.banner-vh-3,
+	body.ielte11 [class*="banner-vh-3"] {
+		min-height: 700px;
+	}
+}
+
+// FIX: make iOS lte7 happy (interprets vh extremely large)
+@media(min-height: 600px) {
+	body.ioslte7 .banner-vh-3 {
+		min-height: 360px;
+	}
+}
+@media(min-height: 768px) {
+	body.ioslte7 .banner-vh-3 {
+		min-height: 460px;
+	}
+}
+@media(min-height: 850px) {
+	body.ioslte7 .banner-vh-3 {
+		min-height: 510px;
+	}
+}
+@media(min-height: 1000px) {
+	body.ioslte7 .banner-vh-3 {
+		min-height: 600px;
+	}
+}

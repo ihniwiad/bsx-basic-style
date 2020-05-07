@@ -1,0 +1,11 @@
+{
+	"scss": null,
+	"js": null,
+	"copyFiles": [
+		{
+			"src": "/img/example-logo.svg",
+			"dest": "/assets/img/ci/logo/logo.svg"
+		}
+	],
+	"lang": null
+}

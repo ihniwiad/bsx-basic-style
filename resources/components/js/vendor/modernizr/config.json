@@ -1,0 +1,13 @@
+{
+	"scss": null,
+	"js": {
+		"use": [],
+		"addVendor": [
+				{
+				"key": "/modernizr-custom.js"
+			}
+		]
+	},
+	"view": null,
+	"copyFiles": null
+}

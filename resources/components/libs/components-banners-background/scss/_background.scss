@@ -1,0 +1,129 @@
+// style
+
+
+// BACKGROUND IMAGES
+
+body .bg-fixed {
+	background-attachment: fixed;
+}
+// exeption for ios devices which unfortunately are unable to show fixed background with background size cover
+body.is-ios .bg-fixed,
+body.is-android .bg-fixed {
+	background-attachment: scroll;
+}
+body.is-ios .bg-mobile-ta,
+body.is-android .bg-mobile-ta {
+	background-position: center top;
+	background-size: auto;
+}
+body.is-ios .bg-mobile-ct,
+body.is-android .bg-mobile-ct {
+	background-position: center top;
+}
+body.is-ios .bg-mobile-size-200,
+body.is-android .bg-mobile-size-200 {
+	background-size: 200%;
+}
+@include media-breakpoint-up(sm) {
+	body.is-ios .bg-mobile-size-sm-150,
+	body.is-android .bg-mobile-size-sm-150 {
+		background-size: 150%;
+	}
+}
+@include media-breakpoint-up(md) {
+	body.is-ios .bg-mobile-size-md-100,
+	body.is-android .bg-mobile-size-md-100 {
+		background-size: 100%;
+	}
+}
+@include media-breakpoint-up(lg) {
+	body.is-ios .bg-mobile-size-lg-100,
+	body.is-android .bg-mobile-size-lg-100 {
+		background-size: 100%;
+	}
+}
+body.is-ios .bg-mobile-no-repeat,
+body.is-android .bg-mobile-no-repeat {
+	background-repeat: no-repeat;
+}
+
+// bg size
+.bg-cover {
+	background-size: cover;
+}
+.bg-contain {
+	background-size: contain;
+}
+.bg-100a {
+	background-size: 100% auto;
+}
+.bg-no-repeat {
+	background-repeat: no-repeat;
+}
+
+// bg position
+.bg-c {
+	background-position: center;
+}
+.bg-rc {
+	background-position: right center;
+}
+.bg-33c {
+	background-position: 33% center;
+}
+.bg-66c {
+	background-position: 66% center;
+}
+.bg-80c {
+	background-position: 80% center;
+}
+.bg-66t {
+	background-position: 66% top;
+}
+.bg-ct {
+	background-position: center top;
+}
+.bg-c25 {
+	background-position: center 25%;
+}
+.bg-c66 {
+	background-position: center 66%;
+}
+.bg-c75 {
+	background-position: center 75%;
+}
+@include media-breakpoint-up(md) {
+	.bg-c-md, // obsolete
+	.bg-md-c {
+		background-position: center;
+	}
+	.bg-66c-md, // obsolete
+	.bg-md-66c {
+		background-position: 66% center;
+	}
+}
+
+
+
+// BACKGROUND COLOR BOXES
+
+@each $color, $value in $theme-colors {
+  @include bg-transparent-variant(".bg-#{$color}", $value);
+}
+
+// add white
+.bg-white-transparent {
+	background-color: rgba($white, $bg-transparency-light);
+}
+.bg-white-opaque {
+	background-color: rgba($white, $bg-opacity-light);
+}
+
+// add black
+.bg-black-transparent {
+	background-color: rgba($black, $bg-transparency-dark);
+}
+.bg-black-opaque {
+	background-color: rgba($black, $bg-opacity-dark);
+}
+

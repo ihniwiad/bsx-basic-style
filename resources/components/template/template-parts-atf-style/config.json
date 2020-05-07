@@ -1,0 +1,8 @@
+{
+	"copyFiles": [
+		{
+			"src": "/php/atf-style.php",
+			"dest": "/resources/template/template-parts"
+		}
+	]
+}

@@ -1,0 +1,13 @@
+{
+	"scss": null,
+	"js": {
+		"use": [
+			{
+				"key": "/js/utils.js"
+			}
+		],
+		"dependencies": null
+	},
+	"view": null,
+	"copyFiles": null
+}

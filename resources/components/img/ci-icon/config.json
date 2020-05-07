@@ -1,0 +1,11 @@
+{
+	"scss": null,
+	"js": null,
+	"copyFiles": [
+		{
+			"src": "/img/",
+			"dest": "/assets/img/ci/icon"
+		}
+	],
+	"lang": null
+}

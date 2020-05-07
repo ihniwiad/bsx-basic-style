@@ -1,0 +1,51 @@
+{
+	"php": {
+		"classes": [
+			{
+				"key": "/php/appnav-example-nav-001.php"
+			}
+		]
+	},
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_appnav-var.scss"
+			},
+			{
+				"key": "/scss/_dropdown-var.scss"
+			},
+			{
+				"key": "/scss/_appnav-additional-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_appnav-mixins.scss"
+			},
+			{
+				"key": "/scss/_appnav.scss"
+			},
+			{
+				"key": "/scss/_dropdown.scss"
+			},
+			{
+				"key": "/scss/_appnav-additional.scss"
+			}
+		],
+		"atf": [
+			{
+				"key": "/scss/_appnav-mixins.scss"
+			},
+			{
+				"key": "/scss/_appnav-atf.scss"
+			}
+		]
+	},
+	"js": {
+		"use": [
+			{
+				"key": "/js/multilevel-dropdown.js"
+			}
+		]
+	}
+}

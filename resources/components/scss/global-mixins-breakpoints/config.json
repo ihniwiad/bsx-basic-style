@@ -1,0 +1,14 @@
+{
+	"scss": {
+		"use": [
+			{
+				"key": "/scss/_breakpoints.scss"
+			}
+		],
+		"atf": [
+			{
+				"key": "/scss/_breakpoints.scss"
+			}
+		]
+	}
+}

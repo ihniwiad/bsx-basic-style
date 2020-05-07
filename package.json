@@ -1,0 +1,15 @@
+{
+  "name": "bsx-basic-style",
+  "description": "Basic style package for use within Bootstrap based projects.",
+  "license": "",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "^4.4.0",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
+    "owl.carousel": "^2.3.4",
+    "photoswipe": "^4.1.2",
+    "popper.js": "^1.16.0",
+    "roboto-fontface": "^0.10.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "minify": true,
+  "options": [
+    "testAllProps",
+    "testProp",
+    "testStyles",
+    "setClasses"
+  ],
+  "feature-detects": [
+    "test/touchevents",
+    "test/css/flexbox",
+    "test/css/flexboxlegacy",
+    "test/css/flexboxtweener",
+    "test/css/flexwrap",
+    "test/css/objectfit",
+    "test/css/pointerevents",
+    "test/svg/inline"
+  ]
+}

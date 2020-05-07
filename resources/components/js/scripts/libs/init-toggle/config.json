@@ -1,0 +1,13 @@
+{
+	"scss": null,
+	"js": {
+		"use": [
+			{
+				"key": "/js/init-toggle.js"
+			}
+		],
+		"dependencies": null
+	},
+	"view": null,
+	"copyFiles": null
+}

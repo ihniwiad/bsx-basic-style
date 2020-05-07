@@ -1,0 +1,15 @@
+// mixins
+
+
+@mixin bg-transparent-variant($parent, $color) {
+	
+	$transparency: $bg-transparency-medium;
+	$opacity: $bg-opacity-medium;
+
+	#{$parent}-transparent {
+		background-color: rgba($color, $transparency) !important;
+	}
+	#{$parent}-opaque {
+		background-color: rgba($color, $opacity) !important;
+	}
+}

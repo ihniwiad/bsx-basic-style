@@ -1,0 +1,44 @@
+// style
+
+
+.page-footer {
+	margin-top: $bsx-footer-margin-top;
+	padding-bottom: 1.5em;
+	background-color: $bsx-footer-bg-color;
+	box-shadow: 0 2500px 0 2500px $bsx-footer-bg-color;
+	
+	a[href]:not([class*="color-"]) {
+		color: inherit;
+	}
+}
+
+.mb--footer-space,
+.mb-n-footer-space {
+	margin-bottom: -#{$bsx-footer-margin-top};
+}
+.pb-footer-space {
+	padding-bottom: $bsx-footer-margin-top;
+}
+
+/*
+.footer-grayscale-logo {
+	filter: grayscale(100%) opacity(67%);
+	transition: $bsx-basic-transition;
+
+	&:hover {
+		filter: grayscale(0%) opacity(100%);
+	}
+}
+*/
+
+.footer-link {
+	color: inherit;
+
+	@include bsx-hover-focus {
+		text-decoration: underline;
+		color: inherit;
+	}
+
+}
+
+

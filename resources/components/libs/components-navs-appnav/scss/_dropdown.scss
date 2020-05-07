@@ -1,0 +1,27 @@
+// dropdown
+
+
+.bsx-dropdown-item-container {
+	padding: $bsx-dropdown-item-container-py $bsx-dropdown-item-container-px ( $bsx-dropdown-item-container-py - $bsx-appnav-desktop-dropdown-py ) $bsx-dropdown-item-container-px;
+}
+
+
+// form
+
+.bsx-dropdown-form {
+	margin-bottom: 0;
+}
+@include bsx-appnav-navigation(mobile) {
+	.bsx-dropdown-form {
+		width: 100%;
+	}
+}
+@include bsx-appnav-navigation(desktop) {
+	.bsx-dropdown-form {
+		min-width: 250px;
+	}
+}
+
+.bsx-dropdown-form .form-group {
+	margin-bottom: 0.33333rem;
+}

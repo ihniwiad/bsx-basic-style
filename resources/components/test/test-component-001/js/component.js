@@ -1,0 +1,1 @@
+// test-component-001/js/component.js

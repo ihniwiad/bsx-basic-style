@@ -1,0 +1,78 @@
+{
+	"srcPlugin": 0,
+	"php": {
+		"classes": [
+			{
+				"key": "/php/test-component-001.php"
+			}
+		]
+	},
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_variables.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_test-component-001.scss"
+			}
+		],
+		"atf": [
+			{
+				"key": "/scss/_above-the-fold-001.scss"
+			}
+		]
+	},
+	"js": {
+		"use": [
+			{
+				"key": "/js/component.js"
+			}
+		],
+		"addVendor": [
+			{
+				"key": "/node_modules/photoswipe/dist/photoswipe.min.js"
+			}
+		],
+		"lang": [
+			{
+				"key": "/example.properties",
+				"path": "/lang"
+			}
+		]
+	},
+	"view": {
+		"use": [
+			{
+				"key": "/view/test.twig",
+				"example": [
+					{
+						"key": "/example/test-component-001-example-01.twig",
+						"doc": [
+							{
+								"key": "Lorem ipsum dolor sit amet, consectetuer \\`test adipiscing elit. Aenean *commodo ligula* eget dolor `.example-class` Cum sociis \\*test natoque penatibus et magnis dis parturient montes"
+							},
+							{
+								"key": "Donec quam felis, ultricies nec, **pellentesque** eu `&lt;element&gt;` sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.",
+								"type": "alert-warning"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	"copyFiles": [
+		{
+			"src": "/img/example-logo.svg",
+			"dest": "/assets/img/test/logo.svg"
+		}
+	],
+	"lang": [
+		{
+			"key": "/example.properties",
+			"path": "/lang"
+		}
+	]
+}

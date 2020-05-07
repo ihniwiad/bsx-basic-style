@@ -1,0 +1,157 @@
+// variables
+
+
+// COLORS & CONFIG FOR QUICKSTART
+
+// NOTE: this configuration inverts your default color with your hover color on darker backgrounds of desktop dropdown or mobile active link (try if it fits to your choosen colors)
+$bsx-appnav-use-inverse-color:				false !default; // false
+
+// NOTE: this configuration puts an underline to the desktop current link instead of changing color and background
+$bsx-appnav-use-current-link-underline:		true !default; // true
+
+$bsx-appnav-quickstart-bg-color: 			$white !default;
+$bsx-appnav-quickstart-dropdown-bg-color: 	$gray-200 !default;
+
+$bsx-appnav-quickstart-color: 				$gray-700 !default;
+$bsx-appnav-quickstart-icon-color: 			lighten($bsx-appnav-quickstart-color, 25) !default;
+$bsx-appnav-quickstart-inverse-color: 		$primary !default;
+
+// NOTE: you can choose which values to choose for hover colors (try to vary $bsx-appnav-use-inverse-color dependant on your colors, too)
+//$bsx-appnav-quickstart-hover-color: 		darken($bsx-appnav-quickstart-color, 15) !default;
+//$bsx-appnav-quickstart-icon-hover-color: 	$bsx-appnav-quickstart-color !default;
+$bsx-appnav-quickstart-hover-color: 		$bsx-appnav-quickstart-inverse-color !default;
+$bsx-appnav-quickstart-icon-hover-color: 	lighten($bsx-appnav-quickstart-inverse-color, 10) !default;
+
+$bsx-appnav-quickstart-highlight-color: 			$primary !default;
+$bsx-appnav-quickstart-button-bg-color: 			$secondary !default;
+$bsx-appnav-quickstart-mobile-link-border-color: 	rgba($black, 0.075) !default;
+
+
+// GENERAL (DEFINITIONS USED IN FOLLOWING STYLES)
+
+
+// ui
+$bsx-appnav-nav-ui-min-height:				40px !default;
+
+// breakpoint
+$bsx-appnav-nav-devide-mobile-desktop:		true !default; // default: true
+$bsx-appnav-nav-breakpoint-mobile-down:		md !default; // default: md
+$bsx-appnav-nav-breakpoint-desktop-up:		lg !default; // default: lg
+
+
+// STYLES
+
+
+// navbar (header)
+
+$bsx-appnav-navbar-z-index: 				1030 !default;
+$bsx-appnav-navbar-py:						0 !default;
+$bsx-appnav-navbar-bg-color:				rgba($white, 0.94) !default; // header
+$bsx-appnav-navbar-box-shadow:				0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 15px 0 rgba(0, 0, 0, 0.05) !default;
+
+
+// toggle
+
+
+// nav (container)
+
+
+// brand
+
+
+// collapse
+
+$bsx-appnav-mobile-collapse-bg-color:		$white !default; // mobile nav background
+$bsx-appnav-mobile-collapse-transition:		transform 0.3s ease-in-out;
+$bsx-appnav-mobile-collapse-z-index:		1120 !default;
+$bsx-appnav-mobile-collapse-width:			80% !default;
+$bsx-appnav-mobile-collapse-max-width:		30rem !default;
+
+
+// ul (both, main & icon navbar)
+
+
+// dropdown
+$bsx-appnav-desktop-dropdown-py:			.25em !default;
+$bsx-appnav-desktop-dropdown-px:			0 !default;
+$bsx-appnav-dropdown-box-shadow:			0 1px 0.125rem 0 rgba(0, 0, 0, 0.25) !default;
+
+
+// link
+
+// link atf style
+$bsx-appnav-link-atf-bg-color:								$gray-300 !default;
+$bsx-appnav-link-atf-min-width:								2rem !default;
+$bsx-appnav-link-atf-min-height:							1.25em !default;
+$bsx-appnav-link-atf-margin-top:							(1.5em - $bsx-appnav-link-atf-min-height) / 2 !default;
+
+// link hover bg
+$bsx-appnav-nav-desktop-level-1-hover-link-bg-color:        $gray-200 !default; // desktop level 1 hover bg color (equal desktop dropdown bg color)
+$bsx-appnav-nav-desktop-level-2-hover-link-bg-color:        $bsx-appnav-navbar-bg-color !default; // desktop level 2..n hover bg color (equal navbar bg color)
+$bsx-appnav-nav-link-mobile-hover-bg-color:                 rgba($black, 0.05) !default; // mobile level 1..n hover
+
+// link color
+$bsx-appnav-color:											$bsx-appnav-quickstart-color !default;
+$bsx-appnav-hover-color:									$bsx-appnav-quickstart-hover-color !default;
+$bsx-appnav-active-color:									$bsx-appnav-quickstart-hover-color !default;
+
+$bsx-appnav-icon-color:										lighten($bsx-appnav-color, 10) !default;
+$bsx-appnav-icon-hover-color:								$bsx-appnav-quickstart-icon-hover-color !default;
+$bsx-appnav-icon-active-color:								$bsx-appnav-quickstart-icon-hover-color !default;
+
+// font weight
+$bsx-appnav-basic-font-weight:						400 !default;
+$bsx-appnav-desktop-bigmenu-level-2-font-weight:	500 !default;
+$bsx-appnav-desktop-level-1-uppercase:        		false !default;
+
+// link icons
+$bsx-appnav-icon-font-family:			FontAwesome !default;
+$bsx-appnav-arrow-left-icon:			"\f060" !default;
+$bsx-appnav-arrow-right-icon:			"\f061" !default;
+$bsx-appnav-caret-icon:					"\f078" !default;
+$bsx-appnav-caret-scale:				0.5 !default;
+$bsx-appnav-caret-font-size:			#{$bsx-appnav-caret-scale}em !default; // use scale factor above for better calculation of dependent elements
+$bsx-appnav-caret-width:				1em !default;
+
+// link spacer
+$bsx-appnav-link-icon-text-spacer:		0.5em !default;
+$bsx-appnav-link-text-caret-spacer:		0.5em !default;
+
+// link padding
+$bsx-appnav-link-px:							0.66667em !default;
+$bsx-appnav-link-py:							0.66667em !default;
+
+$bsx-appnav-desktop-level-1-link-py:			1em !default;
+
+// bigmenu link padding
+$bsx-appnav-desktop-bigmenu-level-2-link-px:	1.33333em !default;
+$bsx-appnav-desktop-bigmenu-level-2-link-py:	0.5em !default;
+$bsx-appnav-desktop-bigmenu-level-3-link-pl:	2 * $bsx-appnav-desktop-bigmenu-level-2-link-px !default;
+
+// link responsice padding – TODO: is this really in use?
+$bsx-appnav-level-1-link-responsive-py: (
+	xs: 1em,
+	sm: 0.85rem,
+	md: 0.75rem
+) !default;
+
+// desktop level 1 active (current) link underline
+$bsx-appnav-desktop-level-1-active-link-underline-color:		$bsx-appnav-quickstart-highlight-color !default; 
+$bsx-appnav-desktop-level-1-active-link-underline-height:		0.125em !default;
+$bsx-appnav-desktop-level-1-active-link-underline-bottom:		$bsx-appnav-desktop-level-1-link-py * 0.5 + $bsx-appnav-desktop-level-1-active-link-underline-height !default;
+$bsx-appnav-desktop-level-1-active-link-underline-overlap-x:	0.05em !default;
+
+// mobile link border
+$bsx-appnav-mobile-link-border-color:						$bsx-appnav-quickstart-mobile-link-border-color !default;
+$bsx-appnav-mobile-link-border-width:						1px !default;
+
+
+// main navbar ul
+
+
+// backdrop (of main navbar)
+$bsx-appnav-main-backdrop-bg-color:           		        rgba(0, 0, 0, 0.5) !default;
+$bsx-appnav-main-backdrop-z-index:							1110 !default;
+
+
+// icon navbar ul

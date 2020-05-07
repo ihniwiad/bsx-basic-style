@@ -1,0 +1,23 @@
+{
+	"scss": {
+		"use": [
+			{
+				"key": "/node_modules/bootstrap/scss/bootstrap",
+				"position": null
+			}
+		],
+		"dependencies": null
+	},
+	"js": {
+		"use": null,
+		"dependencies": null,
+		"addVendor": [
+			{
+				"key": "/node_modules/bootstrap/dist/js/bootstrap.js",
+				"position": null
+			}
+		]
+	},
+	"view": null,
+	"copyFiles": null
+}

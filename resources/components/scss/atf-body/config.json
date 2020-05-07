@@ -1,0 +1,19 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_body-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_body.scss"
+			}
+		],
+		"atf": [
+			{
+				"key": "/scss/_body-atf.scss"
+			}
+		]
+	}
+}

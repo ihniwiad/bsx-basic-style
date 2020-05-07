@@ -1,0 +1,13 @@
+{
+	"scss": null,
+	"js": {
+		"use": null,
+		"addVendor": [
+				{
+				"key": "/node_modules/jquery/dist/jquery.js"
+			}
+		]
+	},
+	"view": null,
+	"copyFiles": null
+}

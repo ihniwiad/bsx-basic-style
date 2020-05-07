@@ -1,0 +1,19 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_vh-banner-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_vh-banner.scss"
+			}
+		],
+		"atf": [
+			{
+				"key": "/scss/_vh-banner-atf.scss"
+			}
+		]
+	}
+}

@@ -1,0 +1,14 @@
+{
+	"scss": null,
+	"js": {
+		"use": [
+			{
+				"key": "/js/init.js",
+				"position": null
+			}
+		],
+		"dependencies": null
+	},
+	"view": null,
+	"copyFiles": null
+}

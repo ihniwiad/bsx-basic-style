@@ -1,0 +1,214 @@
+{# TEST #}
+
+{#
+<ul class="row list-unstyled no-gutters d-md-flex flex-md-row justify-content-around">
+    <li class="col-6 col-sm-4 col-md-auto text-center" data-id="5511">
+        <a class="limited-logo-sm d-block" href="b-1953">
+            <script>document.write('<img class="" src="" data-fn="lazyload" data-src="/item/images/5511/secondPreview/5511.png" alt="ASUS">');</script><img class="" src="" data-fn="lazyload" data-src="/item/images/5511/secondPreview/5511.png" alt="ASUS" style="">
+            <noscript><img class="" src="/item/images/5511/secondPreview/5511.png" alt="ASUS"></noscript>
+        </a>
+    </li>
+    ...
+</ul>
+#}
+
+{% macro test( options ) %}
+
+    {%- spaceless %}
+
+        {% import _self as Components %}
+
+        {%
+            set defaults = {
+                cmpId: 'equalSpaceLogoList',
+
+                nodeName: 'ul',
+                class: 'row list-unstyled no-gutters d-md-flex flex-md-row justify-content-around',
+                additionalClass: '',
+                additionalAttributes: '',
+
+                item: {
+                    cmpId: 'equalSpaceLogoList@item',
+
+                    nodeName: 'li',
+                    additionalClass: '',
+                    additionalAttributes: '',
+                    colCount: {
+                        'default': 6,
+                        'sm': 4,
+                        'md': 'auto'
+                    },
+                    textAlign: 'center'
+                },
+
+                itemInner: {
+                    cmpId: 'equalSpaceLogoList@itemInner',
+
+                    nodeName: 'span',
+                    class: 'limited-logo-sm',
+                    additionalClass: '',
+                    additionalAttributes: '',
+
+                    display: 'block'
+                },
+
+                itemImg: {},
+
+                items: [
+                    {
+                        img: {
+                            src: plugin_path( "###PLUGIN_NAME###" ) ~ '/images/example/example-logo-002.png',
+                            alt: 'Image 1 alt text'
+                        },
+                        inner: {
+                            href: '#anchor-1'
+                        }
+                    },
+                    {
+                        img: {
+                            src: plugin_path( "###PLUGIN_NAME###" ) ~ '/images/example/example-logo-006.png',
+                            alt: 'Image 2 alt text'
+                        },
+                        inner: {
+                            href: '#anchor-1'
+                        }
+                    },
+                    {
+                        img: {
+                            src: plugin_path( "###PLUGIN_NAME###" ) ~ '/images/example/example-logo-004.png',
+                            alt: 'Image 3 alt text'
+                        },
+                        inner: {
+                            href: '#anchor-1'
+                        }
+                    }
+                ]
+
+            }
+        %}
+        {# options fallback #}
+        {% if options is not iterable %}
+            {% set options = {} %}
+        {% endif %}
+
+        {# iteable keys to overwrite (instead of merge) #}
+        {% set overrideKeys = [ 'items', 'margin', 'padding', 'border' ] %}
+
+        {# merge defaults #}
+        {% set merged = {} | merge( defaults ) %}
+
+        {# iterate options #}
+        {% for key, value in options %}
+            {% if value is not iterable or key in overrideKeys %}
+                {# update value #}
+                {% set merged = merged | merge( { ( key ): value } ) %}
+            {% else %}
+                {# iterate next level #}
+
+                {# merge sublevel 1 defaults #}
+                {% if attribute( merged, key ) is defined %}
+                    {% set merged_1 = merged[ key ] %}
+                {% else %}
+                    {% set merged_1 = {} %}
+                {% endif %}
+
+                {% for key_1, value_1 in value %}
+                    {# update value_1 #}
+                    {% set merged_1 = merged_1 | merge( { ( key_1 ): value_1 } ) %}
+                {% endfor %}
+
+                {# update value #}
+                {% set merged = merged | merge( { ( key ): merged_1 } ) %}
+            {% endif %}
+        {% endfor %}
+
+        {# 
+        {{ dump( merged ) }}
+        #}
+        
+        {% set options = {} | merge( merged ) %}
+
+        {# merge attributes as additionalAttributes into options #}
+        {% set options = options | merge( { additionalAttributes: options.attributes } ) %}
+
+        {# prepare images for individualAttributes #}
+        {% if options.imgUrlTrunc and options.imgFileExtension and options.smallImgUrlSuffix %}
+	        {% set largeImg = options.imgUrlTrunc ~ '.' ~ options.imgFileExtension %}
+	        {% set smallImg = options.imgUrlTrunc ~ options.smallImgUrlSuffix ~ '.' ~ options.imgFileExtension %}
+        {% endif %}
+
+        {# build individualAttributes #}
+        {% set individualAttributes = '' %}
+        {% if largeImg and smallImg %}
+        	{% set individualAttributes = 'data-src="' ~ largeImg ~ '" style="background-image: url(\'' ~ smallImg ~ '\');"' %}
+        {% endif %}
+
+        {# insert individualAttributes into additionalAttributes (additionalAttributes on last position) #}
+        {% set additionalAttributes = options.additionalAttributes %}
+        {% set additionalAttributes = individualAttributes ~ ( individualAttributes != '' and additionalAttributes != '' ? ' ' ) ~ additionalAttributes %}
+
+        {# merge class as additionalClass into options #}
+        {% set additionalClass = class ~ ( class != '' and options.additionalClass != '' ? ' ' ) ~ options.additionalClass %}
+        {% set options = options | merge( { additionalClass: additionalClass } ) %}
+
+        {# merge additionalAttributes into options #}
+        {% set options = options | merge( { additionalAttributes: additionalAttributes } ) %}
+
+    {% endspaceless -%}
+
+    {# OPEN ROW #}
+    {{ Components.openRow( options ) }}
+
+        {% for item in options.items %}
+
+            {# overwrite itemOptions if set #}
+            {% set itemOptions = options.item %}
+            {% set itemOptions = itemOptions | merge( item ) %}
+
+            {#
+            {{ dump( options ) }}
+            {{ dump( itemOptions ) }}
+            #}
+
+            {# OPEN COL #}
+            {{ Components.openCol( itemOptions ) }}
+
+                {# overwrite itemInnerOptions if set #}
+                {% set itemInnerOptions = options.itemInner %}
+                {% if item.inner and item.inner.nodeName %}
+                    {% set itemInnerOptions = itemInnerOptions | merge( { nodeName: item.inner.nodeName } ) %}
+                {% endif %}
+                {% if item.inner and item.inner.href %}
+                    {% set itemInnerOptions = itemInnerOptions | merge( { nodeName: item.inner.href } ) %}
+                {% endif %}
+                {% if item.inner and item.inner.additionalClass %}
+                    {% set itemInnerOptions = itemInnerOptions | merge( { nodeName: item.inner.additionalClass } ) %}
+                {% endif %}
+
+                {# OPEN ELEMENT #}
+                {{ Components.openLink( itemInnerOptions ) }}
+
+                    {# overwrite imgOptions if set #}
+                    {% set itemImgOptions = options.itemImg %}
+                    {% set itemImgOptions = itemImgOptions | merge( { 
+                        src: item.img.src, 
+                        alt: item.img.alt, 
+                        additionalClass: item.img.additionalClass 
+                    } ) %}
+
+                    {# IMG #}
+                    {{ Components.img( itemImgOptions ) }}
+
+                {# CLOSE ELEMENT #}
+                {{ Components.closeLink( itemInnerOptions ) }}
+
+            {# CLOSE COL #}
+            {{ Components.closeCol( itemOptions ) }}
+
+        {% endfor %}
+
+    {# CLOSE ROW #}
+    {{ Components.closeRow( options ) }}
+
+{% endmacro %}
+{# /TEST #}

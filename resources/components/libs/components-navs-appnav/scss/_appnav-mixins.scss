@@ -1,0 +1,309 @@
+// mixins
+
+
+// mixins bsx-appnav navbar
+
+
+
+// devide mobile & desktop nav
+
+@mixin bsx-appnav-navigation($media-size) {
+
+	@if $bsx-appnav-nav-devide-mobile-desktop {
+
+		@if $media-size == mobile {
+			@include bsx-media-breakpoint-down($bsx-appnav-nav-breakpoint-mobile-down) { @content }
+		}
+		@else {
+			@include bsx-media-breakpoint-up($bsx-appnav-nav-breakpoint-desktop-up) { @content }
+		}
+
+	}
+
+	@else {
+		@if $media-size == mobile { 
+			@content
+		}
+	}
+	
+}
+
+
+// responsive padding y
+
+@mixin make-responsive-nav-padding($paddings-y: $bsx-appnav-level-1-link-responsive-py) {
+
+	// remember size of previous screen interval
+	$remember-padding-y: "";
+
+	@each $breakpoint, $padding-y in $paddings-y {
+
+		// make style only if current screen interval has different size
+		@if $padding-y != $remember-padding-y {
+			@include bsx-media-breakpoint-up($breakpoint) {
+				padding-top: $padding-y;
+				padding-bottom: $padding-y;
+			}
+			$remember-padding-y: $padding-y;
+		}
+
+	}
+
+}
+
+
+// NAVBAR NAV MIXINS (make mobile or desktop looking navbar nav)
+
+// mobile
+
+@mixin make-mobile-looking-navbar-nav() {
+
+	li {
+
+		> a {
+			color: $bsx-appnav-color;
+		}
+
+		&.active > a {
+			color: $bsx-appnav-active-color;
+			background-color: $bsx-appnav-nav-link-mobile-hover-bg-color;
+
+			// icon hover style
+
+			&::after {
+				color: $bsx-appnav-icon-hover-color;
+			}
+		}
+
+		ul {
+			display: none;
+			list-style: none;
+		}
+
+		&.show > ul {
+			display: block;
+		}
+
+	}
+
+	// nav toggle
+	.bsx-appnav-dropdown-toggle {
+		&::after {
+			float: right;
+		}
+	}
+	
+}
+
+// desktop
+
+@mixin make-desktop-looking-navbar-nav() {
+	
+	li {
+		a {
+			@include bsx-hover-focus {
+				background-color: $bsx-appnav-nav-desktop-level-1-hover-link-bg-color;
+			}
+		}
+	}
+
+	// only level 1
+
+	> li {
+		display: inline-flex;
+
+		// link (level 1)
+		& > a {
+			white-space: nowrap;
+
+			@include bsx-hover-focus {
+				color: $bsx-appnav-hover-color;
+			}
+		}
+
+		> ul {
+
+			// taken from bootstrap .dropdown-menu
+			display: none; // none by default, but block on "open" of the menu
+			position: absolute;
+			top: 100%;
+			left: 0;
+			z-index: $bsx-dropdown-z-index;
+			float: left;
+			min-width: $bsx-dropdown-min-width;
+			font-size: $bsx-font-size-base; // Redeclare because nesting can cause inheritance issues
+			text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+			list-style: none;
+
+			margin: 0;
+			padding: $bsx-appnav-desktop-dropdown-py $bsx-appnav-desktop-dropdown-px;
+
+			box-shadow: $bsx-appnav-dropdown-box-shadow;
+			clip: rect(0px, 100000px, 100000px, -1000px);
+
+			background-color: $bsx-appnav-nav-desktop-level-1-hover-link-bg-color;
+		}
+
+		> ul.ul-right {
+			left: auto;
+			right: 0;
+		}
+
+		&.show {
+			> ul {
+				display: block;
+			}
+		}
+
+		&:not(.bsx-appnav-bigmenu-dropdown) {
+			ul {
+				a {
+					white-space: nowrap;
+					width: 100%;
+				}
+			}
+		}
+
+	}
+
+	@if $bsx-appnav-use-current-link-underline {
+
+		// use current link underline
+
+		// only level 2..n
+
+		li {
+			ul > li.active > a {
+
+				@if $bsx-appnav-use-inverse-color { 
+					// use inverse color
+					color: $bsx-appnav-color;
+				}
+				@else {
+					// use basic color
+					color: $bsx-appnav-active-color;
+				}
+				background-color: $bsx-appnav-nav-desktop-level-2-hover-link-bg-color;
+			}
+		}
+
+	}
+	@else {
+
+		// not use current link underline (use hover styles for current link, adapt to each desktop level)
+
+		// all levels
+
+		li.active > a {
+
+			@if $bsx-appnav-use-inverse-color { 
+				// use inverse color
+				color: $bsx-appnav-color;
+			}
+			@else {
+				// use basic color
+				color: $bsx-appnav-active-color;
+			}
+		}
+
+		// only level 1
+
+		li.active > a {
+			background-color: $bsx-appnav-nav-desktop-level-1-hover-link-bg-color;;
+		}
+
+		// only level 2..n
+
+		li {
+			ul > li.active > a {
+				background-color: $bsx-appnav-nav-desktop-level-2-hover-link-bg-color;
+			}
+		}
+
+	}
+
+	> li ul > li {
+
+		> ul > li ul {
+			// hide level 4..
+			display: none;
+		}
+
+		> a {
+
+			// check if inverse color
+
+			@if $bsx-appnav-use-inverse-color { 
+				// use inverse color
+				color: $bsx-appnav-hover-color;
+
+				@include bsx-hover-focus {
+					color: $bsx-appnav-color !important;
+				}
+			}
+			@else {
+				// use basic color
+				@include bsx-hover-focus {
+					color: $bsx-appnav-hover-color;
+				}
+			}
+
+			@include bsx-hover-focus {
+				//color: $bsx-appnav-hover-color;
+				background-color: $bsx-appnav-nav-desktop-level-2-hover-link-bg-color;
+			}
+
+			&.bsx-appnav-dropdown-toggle {
+				&::after {
+					content: "";
+				}
+			}
+		}
+
+	}
+
+	// only level 3
+	> li > ul > li > ul > li {
+
+		> a {
+			padding-left: $bsx-appnav-desktop-bigmenu-level-3-link-pl !important;
+		}
+
+	}
+
+	// only bigmenu
+	li.bsx-appnav-bigmenu-dropdown {
+		> ul {
+			width: 100%;
+		}
+    }
+
+	li:not(.bsx-appnav-bigmenu-dropdown) {
+
+		position: relative;
+
+	}
+
+	// back button
+	.nav-item-back {
+		display: none;
+	}
+
+	// nav toggle
+	.bsx-appnav-dropdown-toggle {
+		&::after {
+			content: $bsx-appnav-caret-icon;
+			font-size: $bsx-appnav-caret-font-size;
+			width: $bsx-appnav-caret-width;
+			margin-left: $bsx-appnav-link-text-caret-spacer;
+			color: inherit;
+		}
+	}
+
+}
+
+
+
+
+
+

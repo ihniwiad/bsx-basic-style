@@ -1,0 +1,31 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_variables.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-thin"
+			},
+			{
+				"key": "/node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-light"
+			},
+			{
+				"key": "/node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-regular"
+			},
+			{
+				"key": "/node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-medium"
+			}
+		]
+	},
+	"js": null,
+	"view": null,
+	"copyFiles": [
+		{
+			"src": "/node_modules/roboto-fontface/fonts/roboto",
+			"dest": "/assets/fonts/roboto"
+		}
+	]
+}

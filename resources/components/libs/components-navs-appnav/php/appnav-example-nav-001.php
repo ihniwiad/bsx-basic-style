@@ -249,6 +249,9 @@ if ( ! class_exists( 'BsxAppNavExampleNav001' ) ) {
 			<li class="">
 				<a class="" href="#">Natoque penatibus</a>
 			</li>
+			<li class="">
+				<a class="" href="#">Faucibus tincidunt</a>
+			</li>
 		</ul>
 	</li>
 </ul>

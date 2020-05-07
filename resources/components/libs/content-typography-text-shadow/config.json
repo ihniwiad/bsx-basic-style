@@ -1,0 +1,14 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_text-shadow-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_text-shadow.scss"
+			}
+		]
+	}
+}

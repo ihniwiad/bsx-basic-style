@@ -73,8 +73,9 @@ $bsx-appnav-mobile-collapse-max-width:		30rem !default;
 
 // dropdown
 $bsx-appnav-desktop-dropdown-py:			.25em !default;
+$bsx-appnav-desktop-level-3-dropdown-pt:	.25em !default;
 $bsx-appnav-desktop-dropdown-px:			0 !default;
-$bsx-appnav-dropdown-box-shadow:			0 1px 0.125rem 0 rgba(0, 0, 0, 0.25) !default;
+$bsx-appnav-dropdown-box-shadow:			0 0 0.125rem 0 rgba(0, 0, 0, 0.25) !default;
 
 
 // link
@@ -108,7 +109,9 @@ $bsx-appnav-desktop-level-1-uppercase:        		false !default;
 $bsx-appnav-icon-font-family:			FontAwesome !default;
 $bsx-appnav-arrow-left-icon:			"\f060" !default;
 $bsx-appnav-arrow-right-icon:			"\f061" !default;
-$bsx-appnav-caret-icon:					"\f078" !default;
+$bsx-appnav-caret-down-icon:			"\f078" !default;
+$bsx-appnav-caret-right-icon:			"\f054" !default;
+$bsx-appnav-caret-right-mt:				0.75em !default;
 $bsx-appnav-caret-scale:				0.5 !default;
 $bsx-appnav-caret-font-size:			#{$bsx-appnav-caret-scale}em !default; // use scale factor above for better calculation of dependent elements
 $bsx-appnav-caret-width:				1em !default;

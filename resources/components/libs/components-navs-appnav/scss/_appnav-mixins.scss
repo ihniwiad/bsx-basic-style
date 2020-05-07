@@ -105,12 +105,27 @@
 				background-color: $bsx-appnav-nav-desktop-level-1-hover-link-bg-color;
 			}
 		}
+
+		&.show {
+			> ul {
+				display: block;
+			}
+		}
 	}
 
 	// only level 1
 
 	> li {
 		display: inline-flex;
+
+		&:not(.bsx-appnav-bigmenu-dropdown) {
+			ul {
+				a {
+					white-space: nowrap;
+					width: 100%;
+				}
+			}
+		}
 
 		// link (level 1)
 		& > a {
@@ -123,45 +138,41 @@
 
 		> ul {
 
-			// taken from bootstrap .dropdown-menu
-			display: none; // none by default, but block on "open" of the menu
-			position: absolute;
+			// level 2
+
 			top: 100%;
 			left: 0;
-			z-index: $bsx-dropdown-z-index;
-			float: left;
-			min-width: $bsx-dropdown-min-width;
-			font-size: $bsx-font-size-base; // Redeclare because nesting can cause inheritance issues
-			text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
-			list-style: none;
-
-			margin: 0;
 			padding: $bsx-appnav-desktop-dropdown-py $bsx-appnav-desktop-dropdown-px;
-
-			box-shadow: $bsx-appnav-dropdown-box-shadow;
 			clip: rect(0px, 100000px, 100000px, -1000px);
 
+			ul {
+
+				// level 3..n
+
+				top: -$bsx-appnav-desktop-level-3-dropdown-pt;
+				left: 100%;
+				padding: $bsx-appnav-desktop-level-3-dropdown-pt $bsx-appnav-desktop-dropdown-px $bsx-appnav-desktop-dropdown-py;
+			}
+		}
+
+	}
+	> li,
+	li:not(.bsx-appnav-bigmenu-dropdown) li {
+
+		> ul {
+			//display: none;
+			position: absolute;
+			z-index: $bsx-dropdown-z-index;
+			list-style: none;
+			min-width: $bsx-dropdown-min-width;
+			margin: 0;
 			background-color: $bsx-appnav-nav-desktop-level-1-hover-link-bg-color;
+			box-shadow: $bsx-appnav-dropdown-box-shadow;
 		}
 
 		> ul.ul-right {
 			left: auto;
 			right: 0;
-		}
-
-		&.show {
-			> ul {
-				display: block;
-			}
-		}
-
-		&:not(.bsx-appnav-bigmenu-dropdown) {
-			ul {
-				a {
-					white-space: nowrap;
-					width: 100%;
-				}
-			}
 		}
 
 	}
@@ -224,10 +235,10 @@
 
 	> li ul > li {
 
-		> ul > li ul {
+		//> ul > li ul {
 			// hide level 4..
-			display: none;
-		}
+			//display: none;
+		//}
 
 		> a {
 
@@ -255,27 +266,41 @@
 
 			&.bsx-appnav-dropdown-toggle {
 				&::after {
-					content: "";
+					content: $bsx-appnav-caret-right-icon;
+					float: right;
+					margin-top: $bsx-appnav-caret-right-mt;
 				}
 			}
 		}
 
 	}
 
-	// only level 3
-	> li > ul > li > ul > li {
-
-		> a {
-			padding-left: $bsx-appnav-desktop-bigmenu-level-3-link-pl !important;
-		}
-
-	}
-
 	// only bigmenu
-	li.bsx-appnav-bigmenu-dropdown {
+	> li.bsx-appnav-bigmenu-dropdown {
+
 		> ul {
 			width: 100%;
+
+			> li {
+
+				.bsx-appnav-dropdown-toggle {
+					&::after {
+						content: "";
+					}
+				} 
+
+				// only level 3
+				> ul > li {
+
+					> a {
+						padding-left: $bsx-appnav-desktop-bigmenu-level-3-link-pl !important;
+					}
+
+				}
+
+			}
 		}
+
     }
 
 	li:not(.bsx-appnav-bigmenu-dropdown) {
@@ -292,7 +317,7 @@
 	// nav toggle
 	.bsx-appnav-dropdown-toggle {
 		&::after {
-			content: $bsx-appnav-caret-icon;
+			content: $bsx-appnav-caret-down-icon;
 			font-size: $bsx-appnav-caret-font-size;
 			width: $bsx-appnav-caret-width;
 			margin-left: $bsx-appnav-link-text-caret-spacer;

@@ -1,8 +1,9 @@
 {
 	"copyFiles": [
 		{
+			"type": "example-img",
 			"src": "/img",
-			"dest": "/assets/example-img"
+			"dest": ""
 		}
 	]
 }

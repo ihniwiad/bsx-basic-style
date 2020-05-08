@@ -65,8 +65,9 @@
 	},
 	"copyFiles": [
 		{
+			"type": "img",
 			"src": "/img/example-logo.svg",
-			"dest": "/assets/img/test/logo.svg"
+			"dest": "/test/logo.svg"
 		}
 	],
 	"lang": [

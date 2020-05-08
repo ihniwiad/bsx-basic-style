@@ -3,8 +3,9 @@
 	"js": null,
 	"copyFiles": [
 		{
+			"type": "img",
 			"src": "/img/",
-			"dest": "/assets/img/ci/icon"
+			"dest": "/icon"
 		}
 	],
 	"lang": null

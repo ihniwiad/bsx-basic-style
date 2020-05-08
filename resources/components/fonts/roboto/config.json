@@ -24,8 +24,9 @@
 	"view": null,
 	"copyFiles": [
 		{
+			"type": "font",
 			"src": "/node_modules/roboto-fontface/fonts/roboto",
-			"dest": "/assets/fonts/roboto"
+			"dest": "/roboto"
 		}
 	]
 }

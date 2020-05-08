@@ -15,8 +15,9 @@
 	"view": null,
 	"copyFiles": [
 		{
+			"type": "font",
 			"src": "/node_modules/font-awesome/fonts",
-			"dest": "/assets/fonts/font-awesome"
+			"dest": "/font-awesome"
 		}
 	]
 }

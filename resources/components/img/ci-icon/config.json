@@ -5,7 +5,7 @@
 		{
 			"type": "img",
 			"src": "/img/",
-			"dest": "/icon"
+			"dest": "/ci/icon"
 		}
 	],
 	"lang": null

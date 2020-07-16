@@ -72,10 +72,12 @@ $bsx-appnav-mobile-collapse-max-width:		30rem !default;
 
 
 // dropdown
-$bsx-appnav-desktop-dropdown-py:			.25em !default;
-$bsx-appnav-desktop-level-3-dropdown-pt:	.25em !default;
-$bsx-appnav-desktop-dropdown-px:			0 !default;
-$bsx-appnav-dropdown-box-shadow:			0 0 0.125rem 0 rgba(0, 0, 0, 0.25) !default;
+$bsx-appnav-desktop-dropdown-py:					.25em !default;
+$bsx-appnav-desktop-level-1-dropdown-max-height: 	calc(100vh - 5rem) !default;
+// calculate from header sizes: 100vh - map.get($bsx-responsive-font-sizes, xl) * $bsx-line-height-base - 2 * $bsx-appnav-desktop-level-1-link-py
+$bsx-appnav-desktop-level-3-dropdown-pt:			.25em !default;
+$bsx-appnav-desktop-dropdown-px:					0 !default;
+$bsx-appnav-dropdown-box-shadow:					0 0 0.125rem 0 rgba(0, 0, 0, 0.25) !default;
 
 
 // link

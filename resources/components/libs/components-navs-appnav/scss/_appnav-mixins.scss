@@ -144,6 +144,9 @@
 			left: 0;
 			padding: $bsx-appnav-desktop-dropdown-py $bsx-appnav-desktop-dropdown-px;
 			clip: rect(0px, 100000px, 100000px, -1000px);
+			// avoid overflow while positioned fixed
+			max-height: $bsx-appnav-desktop-level-1-dropdown-max-height;
+			overflow: auto;
 
 			ul {
 

@@ -9,19 +9,19 @@
 // form
 
 .bsx-dropdown-form {
-	margin-bottom: 0;
+	margin-bottom: $bsx-dropdown-form-margin-bottom;
 }
 @include bsx-appnav-navigation(mobile) {
 	.bsx-dropdown-form {
-		width: 100%;
+		width: $bsx-dropdown-form-mobile-width;
 	}
 }
 @include bsx-appnav-navigation(desktop) {
 	.bsx-dropdown-form {
-		min-width: 250px;
+		min-width: $bsx-dropdown-form-desktop-min-width;
 	}
 }
 
 .bsx-dropdown-form .form-group {
-	margin-bottom: 0.33333rem;
+	margin-bottom: $bsx-dropdown-form-group-margin-bottom;
 }

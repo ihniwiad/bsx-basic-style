@@ -6,8 +6,9 @@
 // filled background & vertical centered items
 [class*="banner-vh-"] {
 	background-color: $bsx-banner-atf-bg-color;
-	display: flex;
-	align-items: center;
+	// NOTE: is this style really needed? Causes conflicts with non atf style
+	//display: flex;
+	//align-items: center;
 }
 
 

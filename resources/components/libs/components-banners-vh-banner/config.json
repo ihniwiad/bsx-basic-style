@@ -1,4 +1,11 @@
 {
+	"php": {
+		"classes": [
+			{
+				"key": "/php/banners-example-vh-banner-001.php"
+			}
+		]
+	},
 	"scss": {
 		"addVariables": [
 			{

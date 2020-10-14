@@ -1,5 +1,5 @@
 // variables
 
 
-$bsx-below-navbar-top:					5rem !default;
+$bsx-below-navbar-top:					5rem !important !default; // overwrite other padding top rules
 $bsx-below-navbar-container-banner-top:	.5rem !default;

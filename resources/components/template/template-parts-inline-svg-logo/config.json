@@ -1,0 +1,9 @@
+{
+	"copyFiles": [
+		{
+			"type": "template-parts",
+			"src": "/php/inline-svg-logo.php",
+			"dest": ""
+		}
+	]
+}

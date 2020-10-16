@@ -315,7 +315,9 @@ if ( ! class_exists( 'BsxAppNavExampleNav001' ) ) {
 		</button>
 
 		<a class="bsx-appnav-navbar-brand" href="#">
-			<img src="'.$headerConfig["logo"]["filePath"].'" alt="'.$headerConfig["logo"]["alt"].'" width="'.$headerConfig["logo"]["width"].'" height="'.$headerConfig["logo"]["height"].'">
+			<!-- inline svg logo -->
+			###INLINE_LOGO###
+			<!-- img src="'.$headerConfig["logo"]["filePath"].'" alt="'.$headerConfig["logo"]["alt"].'" width="'.$headerConfig["logo"]["width"].'" height="'.$headerConfig["logo"]["height"].'" -->
 		</a>
 
 		<!--

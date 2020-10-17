@@ -144,9 +144,8 @@
 			left: 0;
 			padding: $bsx-appnav-desktop-dropdown-py $bsx-appnav-desktop-dropdown-px;
 			clip: rect(0px, 100000px, 100000px, -1000px);
-			// avoid overflow while positioned fixed
-			max-height: $bsx-appnav-desktop-level-1-dropdown-max-height;
-			overflow: auto;
+
+			// TODO: what about menu overflows screen?
 
 			ul {
 
@@ -155,6 +154,14 @@
 				top: -$bsx-appnav-desktop-level-3-dropdown-pt;
 				left: 100%;
 				padding: $bsx-appnav-desktop-level-3-dropdown-pt $bsx-appnav-desktop-dropdown-px $bsx-appnav-desktop-dropdown-py;
+			}
+		}
+
+		&.bsx-appnav-bigmenu-dropdown {
+			> ul {
+				// avoid overflow while positioned fixed
+				max-height: $bsx-appnav-desktop-level-1-dropdown-max-height;
+				overflow: auto;
 			}
 		}
 

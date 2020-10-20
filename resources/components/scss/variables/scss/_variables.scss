@@ -81,20 +81,8 @@ $bsx-dropdown-z-index:			1000 !default;
 
 // RESPONSIVE TYPO
 
-$bsx-responsive-font-sizes: (
-	xs: 15px,
-	sm: 15px,
-	md: 16px,
-	lg: 17px,
-	xl: 18px
-) !default;
-$bsx-progressive-font-scales: (
-	xs: 0.5,
-	sm: 0.625,
-	md: 0.75,
-	lg: 0.875,
-	xl: 1
-) !default;
+// use bootstrap rfs
+$enable-responsive-font-sizes: 	true !default;
 
 
 // BORDER

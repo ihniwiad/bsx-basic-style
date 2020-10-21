@@ -1,18 +1,13 @@
 // atf
 
 
-// ATF 
-
-// filled background & vertical centered items
+// background
 [class*="banner-vh-"] {
 	background-color: $bsx-banner-atf-bg-color;
 	// NOTE: is this style really needed? Causes conflicts with non atf style
 	//display: flex;
 	//align-items: center;
 }
-
-
-
 
 
 .banner-inner {

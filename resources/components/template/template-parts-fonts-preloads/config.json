@@ -1,0 +1,9 @@
+{
+	"copyFiles": [
+		{
+			"type": "template-parts",
+			"src": "/php/fonts-preloads.php",
+			"dest": ""
+		}
+	]
+}

@@ -7,13 +7,10 @@
 		],
 		"use": [
 			{
-				"key": "/node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-thin"
+				"key": "/node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-regular"
 			},
 			{
 				"key": "/node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-light"
-			},
-			{
-				"key": "/node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-regular"
 			},
 			{
 				"key": "/node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-medium"

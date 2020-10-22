@@ -297,7 +297,7 @@ var BSX_UTILS = ( function( $ ) {
     // get options from attribute
     // syntax: data-fn-options="{ focusOnOpen: '[data-tg=\'header-search-input\']', bla: true, foo: 'some text content' }"
     $.fn.getOptionsFromAttr = function() {
-        var $this = $(this);
+        var $this = $( this );
         var options = $this.attr( Utils.attributes.options );
         if ( typeof options !== 'undefined' ) {
             return ( new Function( 'return ' + options ) )();

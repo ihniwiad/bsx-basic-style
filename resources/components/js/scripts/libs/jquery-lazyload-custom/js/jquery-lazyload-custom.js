@@ -63,6 +63,17 @@
             picture_height_data_attribute  : "height"
         };
 
+        _getMediaMatchingSrc = function( srcsetJson ) {
+            for ( var i = 0; i < srcsetJson.length; i++ ) {
+                //console.log( i + ': media: ' + srcsetJson[ i ].media + ', src: ' + srcsetJson[ i ].src );
+                if ( window.matchMedia( srcsetJson[ i ].media ).matches || srcsetJson[ i ].media === '' ) {
+                    //console.log( 'match: ' + srcsetJson[ i ].src );
+                    return srcsetJson[ i ].src;
+                    break;
+                }
+            }
+        }
+
         function update() {
             
             var counter = 0;
@@ -114,23 +125,28 @@
             });
         }
 
-        this.each(function() {
+        this.each(function( index ) {
             var self = this;
             var $self = $(self);
             // check for picture tag as parent
             var $parent = $self.parent();
             var isPicture = $parent.is( 'picture' );
+            var isBgImg = ! $self.is( "img" );
 
             self.loaded = false;
             
             // resize function
             $.fn.resizeUnloadImg = function( newImgWidth, newImgHeight ) {
+
+                //console.log( 'resizeUnloadImg' );
+
                 var $img = $( this );
 
-                if ( !! newImgWidth && !! newImgHeight ) {
+                if ( $self.attr( 'data-' + settings.data_attribute ) == settings.placeholder && !! newImgWidth && !! newImgHeight ) {
 
                     // set or reset to intended size (always, no need to remove style, just overwrite immediately)
                     $img.css( { width: newImgWidth + 'px', height: newImgHeight + 'px' } );
+                    //console.log( 'width / height SET (1) (' + $img.attr( 'data-src' ) + ')' );
 
                     // check for css size limitation
                     var cssImgWidth = parseInt( $img.css( 'width' ) );
@@ -141,11 +157,15 @@
                         var calcImgHeight = newImgHeight / newImgWidth * cssImgWidth;
                         // adapt
                         $img.css( { width: calcImgWidth + 'px', height: calcImgHeight + 'px' } );
+                        //console.log( 'width / height SET (2) (' + $img.attr( 'data-src' ) + ')' );
                     }
 
                     // trigger scroll since other unload images might have been appeared during resizing current image
                     $window.trigger( 'scroll' );
 
+                }
+                else {
+                    //console.log( '----- called resize but img altrady loaded: ' + $self.attr( 'data-' + settings.data_attribute ) );
                 }
             }
 
@@ -180,7 +200,7 @@
             /* If no src attribute given use data:uri. */
             if ( $self.is( 'img' ) && ! $self.attr( 'src' ) ) {
             
-                /* plenty adaption: set sizes to unload images after placeholder is set */
+                /* custom adaption: set sizes to unload images after placeholder is set */
                 
                 $self               
                     .one( 'load', function() {
@@ -192,33 +212,37 @@
                         if ( !! origImgWidth && !! origImgHeight ) {
 
                             // generate event id
-                            var eventId = $self.attr( 'data-' + settings.data_attribute ).replace(/[/.]/g, '_');
+                            var eventId = $self.attr( 'data-' + settings.data_attribute ).replace(/[/.]/g, '_') + index;
 
                             // initial resize
-                            $self.resizeUnloadImg( origImgWidth, origImgHeight, true );
+                            $self.resizeUnloadImg( origImgWidth, origImgHeight );
 
                             // events for later resize
 
                             // media sm, md, lg: resize on sizeChange
                             $window.on( 'sizeChange.lazyloadUnload.' + eventId, function() {
-                                if ( ! self.loaded ) {
+                                if ( $self.attr( 'data-' + settings.data_attribute ) == settings.placeholder ) {
                                     $self.resizeUnloadImg( origImgWidth, origImgHeight );
                                 }
                                 else {
                                     // destroy resize event after loading
                                     $window.unbind( 'sizeChange.lazyloadUnload.' + eventId + ' resize.lazyloadUnload.' + eventId );
+
+                                    //console.log( 'unbind sizeChange ' + eventId );
                                 }
                             } );
 
                             // media xs: resize on window resize
                             $window.on( 'resize.lazyloadUnload.' + eventId, function() {
                                 if ( !! window.mediaSize && window.mediaSize == 'xs' ) {
-                                    if ( ! self.loaded ) {
+                                    if ( $self.attr( 'data-' + settings.data_attribute ) == settings.placeholder ) {
                                         $self.resizeUnloadImg( origImgWidth, origImgHeight );
                                     }
                                     else {
                                         // destroy resize event after loading
                                         $window.unbind( 'sizeChange.lazyloadUnload.' + eventId + ' resize.lazyloadUnload.' + eventId );
+
+                                        //console.log( 'unbind resize ' + eventId );
                                     }
                                 }
                             } );
@@ -226,12 +250,13 @@
                         }
                          
                     } )
-                    .attr( 'src', settings.placeholder );
+                    .attr( 'src', settings.placeholder )
+                ;
 
-                    // set placeholders to sources
-                    if ( isPicture ) {
-                        $parent.find( 'source' ).attr( 'srcset', settings.placeholder );
-                    }
+                // set placeholders to sources
+                if ( isPicture ) {
+                    $parent.find( 'source' ).attr( 'srcset', settings.placeholder );
+                }
 
                 
             }
@@ -248,6 +273,30 @@
                     // load hidden placeholder img in background, replace lazy img src on load
                     // prepare preload url, required before load placeholder
                     var preloadImgSrc = $self.attr( 'data-' + settings.data_attribute );
+
+                    // check if src or srcset json
+                    var srcsetJson = [];
+
+                    if ( preloadImgSrc.indexOf( '{' ) != -1 ) {
+                        // get json
+
+                        srcsetJson = ( new Function( 'return ' + preloadImgSrc ) )();
+
+                        // get img src to preload
+                        preloadImgSrc = _getMediaMatchingSrc( srcsetJson );
+
+                        // if not img (is background) add sizeChange event listener to change background img
+                        if ( isBgImg ) {
+
+                            $window.on( 'sizeChange', function() {
+                                var currentImgSrc = _getMediaMatchingSrc( srcsetJson );
+                                //console.log( '----- changed to: ' + currentImgSrc );
+                                $self.css( { backgroundImage: "url('" + currentImgSrc + "')" } );
+                            } );
+
+                        }
+
+                    }
 
                     if ( isPictureCompatibeBrowser && isPicture ) {
 
@@ -284,14 +333,17 @@
                                         $( this ).attr( 'srcset', srcset );
                                     } );
                                 }
-                                $self.attr( 'src', $self.attr( 'data-' + settings.data_attribute ) );
-                                $self.css( { width: '', height: '' } ); // plenty adaption
+                                $self
+                                    .attr( 'src', $self.attr( 'data-' + settings.data_attribute ) )
+                                    .css( { width: '', height: '' } )
+                                ; // custom adaption
+                                //console.log( 'width / height resetted on load (' + preloadImgSrc + ')' );
                                 $self[ settings.effect ]( settings.effect_speed );
                             }
                             else {
                                 // is background image
                                 var backgroundImage = $self.css("background-image");
-                                $self.css( { backgroundImage: "url('" + preloadImgSrc + "'), " + backgroundImage } ); // plenty adaption: load new image and put it before old one without removing old one
+                                $self.css( { backgroundImage: "url('" + preloadImgSrc + "'), " + backgroundImage } ); // custom adaption: load new image and put it before old one without removing old one
                             }
 
                             // don't know if this event is still used or obsolete, but if required should be triggered here
@@ -312,8 +364,6 @@
                         
                         })
                         .attr( 'src', preloadImgSrc );
-                        // TODO: what about removing img after use?
-                    //$self.trigger("loaded");
                     
                 }
             });
@@ -333,7 +383,7 @@
         $document.ready(function() {
             update();
         });
-        //  plenty adaption: update after fonts loaded
+        //  custom adaption: update after fonts loaded
         $window.on( 'load resize', function() {
             update();
         } );

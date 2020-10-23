@@ -44,13 +44,14 @@
         }
     }
 
-    $.fn.lazyload = function(options) {
+    $.fn.lazyload = function( options, index ) {
         var elements = this;
         var $container;
         var settings = {
             threshold                      : 0,
             failure_limit                  : 0,
             event                          : "scroll",
+            effect_speed                   : '200',
             effect                         : "show",
             container                      : window,
             data_attribute                 : "original",
@@ -72,6 +73,10 @@
                     break;
                 }
             }
+        }
+
+        $.fn._isPicture = function() {
+            return $( this ).parent().is( 'picture' );
         }
 
         function update() {
@@ -125,12 +130,9 @@
             });
         }
 
-        this.each(function( index ) {
+        this.each(function() {
             var self = this;
             var $self = $(self);
-            // check for picture tag as parent
-            var $parent = $self.parent();
-            var isPicture = $parent.is( 'picture' );
             var isBgImg = ! $self.is( "img" );
 
             self.loaded = false;
@@ -139,14 +141,24 @@
             $.fn.resizeUnloadImg = function( newImgWidth, newImgHeight ) {
 
                 //console.log( 'resizeUnloadImg' );
+                //console.log( 'data-src: ' + $self.attr( 'data-' + settings.data_attribute ) );
+                //console.log( settings.placeholder );
+                //console.log( 'newImgWidth: ' + newImgWidth );
+                //console.log( 'newImgHeight: ' + newImgHeight );
 
                 var $img = $( this );
 
-                if ( $self.attr( 'data-' + settings.data_attribute ) == settings.placeholder && !! newImgWidth && !! newImgHeight ) {
+                if ( 
+                    (
+                        $self.attr( 'src' ) == ''
+                        || $self.attr( 'src' ) == settings.placeholder 
+                    )
+                    && !! newImgWidth && !! newImgHeight 
+                ) {
 
                     // set or reset to intended size (always, no need to remove style, just overwrite immediately)
                     $img.css( { width: newImgWidth + 'px', height: newImgHeight + 'px' } );
-                    //console.log( 'width / height SET (1) (' + $img.attr( 'data-src' ) + ')' );
+                    //console.log( 'resizeUnloadImg – width / height SET (1) (' + $img.attr( 'data-src' ) + ')' );
 
                     // check for css size limitation
                     var cssImgWidth = parseInt( $img.css( 'width' ) );
@@ -157,7 +169,7 @@
                         var calcImgHeight = newImgHeight / newImgWidth * cssImgWidth;
                         // adapt
                         $img.css( { width: calcImgWidth + 'px', height: calcImgHeight + 'px' } );
-                        //console.log( 'width / height SET (2) (' + $img.attr( 'data-src' ) + ')' );
+                        //console.log( 'resizeUnloadImg – width / height SET (2) (' + $img.attr( 'data-src' ) + ')' );
                     }
 
                     // trigger scroll since other unload images might have been appeared during resizing current image
@@ -165,99 +177,93 @@
 
                 }
                 else {
-                    //console.log( '----- called resize but img altrady loaded: ' + $self.attr( 'data-' + settings.data_attribute ) );
+                    //console.log( '----- called resize but img altrady loaded (or no sizes given) – data-src: ' + $self.attr( 'data-' + settings.data_attribute ) );
                 }
             }
 
             // get image sizes (from width / height or data-with / data-height)
-            $.fn.getSizes = function( isPicture ) {
+            $.fn.getSizes = function() {
+                //console.log( 'getSizes' );
+                var isPicture = $( this )._isPicture();
                 var width = null;
                 var height = null;
                 if ( isPictureCompatibeBrowser && isPicture ) {
-                    $parent.find( 'source' ).each( function() {
-
-                        var media = $( this ).attr( 'media' );
+                    //console.log( 'isPictureCompatibeBrowser && isPicture' );
+                    $( this ).parent().find( 'source' ).each( function( i, source ) {
+                        //console.log( 'source: ' + i );
+                        var media = $( source ).attr( 'media' );
+                        //console.log( 'media: ' + media );
 
                         if ( window.matchMedia( media ).matches || media === undefined ) {
-                            width = $( this ).attr( 'data-' + settings.picture_width_data_attribute );
-                            height = $( this ).attr( 'data-' + settings.picture_height_data_attribute );
+                            width = $( source ).attr( 'data-' + settings.picture_width_data_attribute );
+                            height = $( source ).attr( 'data-' + settings.picture_height_data_attribute );
+                            //console.log( '----- found matching media: ' + width + ' x ' + height );
                             return false; // break after first match
                         }
                     } );
-                }
-                else if ( isPicture ) {
-                    width = $( this ).attr( 'data-' + settings.picture_width_data_attribute );
-                    height = $( this ).attr( 'data-' + settings.picture_height_data_attribute );
+
+                    // if no media matches get sizes from img tag
+                    if ( width == null && height == null ) {
+                        //console.log( '----- found NO matching media' );
+                        width = $( this ).attr( 'width' );
+                        height = $( this ).attr( 'height' );
+                    }
                 }
                 else {
+                    //console.log( 'else' );
                     width = $( this ).attr( 'width' );
                     height = $( this ).attr( 'height' );
                 }
                 return [ width, height ];
             }
 
+            // generate event id
+            var eventId = $self.attr( 'data-' + settings.data_attribute ).replace(/[/.]/g, '_') + '_' + index;
 
             /* If no src attribute given use data:uri. */
-            if ( $self.is( 'img' ) && ! $self.attr( 'src' ) ) {
+            if ( $self.is( 'img' ) && ( ! $self.attr( 'src' ) || $self.attr( 'src' ) == settings.placeholder ) ) {
             
                 /* custom adaption: set sizes to unload images after placeholder is set */
                 
-                $self               
-                    .one( 'load', function() {
-                
-                        var origSizes = $self.getSizes( isPicture );
-                        var origImgWidth = origSizes[ 0 ];
-                        var origImgHeight = origSizes[ 1 ];
-
-                        if ( !! origImgWidth && !! origImgHeight ) {
-
-                            // generate event id
-                            var eventId = $self.attr( 'data-' + settings.data_attribute ).replace(/[/.]/g, '_') + index;
-
-                            // initial resize
-                            $self.resizeUnloadImg( origImgWidth, origImgHeight );
-
-                            // events for later resize
-
-                            // media sm, md, lg: resize on sizeChange
-                            $window.on( 'sizeChange.lazyloadUnload.' + eventId, function() {
-                                if ( $self.attr( 'data-' + settings.data_attribute ) == settings.placeholder ) {
-                                    $self.resizeUnloadImg( origImgWidth, origImgHeight );
-                                }
-                                else {
-                                    // destroy resize event after loading
-                                    $window.unbind( 'sizeChange.lazyloadUnload.' + eventId + ' resize.lazyloadUnload.' + eventId );
-
-                                    //console.log( 'unbind sizeChange ' + eventId );
-                                }
-                            } );
-
-                            // media xs: resize on window resize
-                            $window.on( 'resize.lazyloadUnload.' + eventId, function() {
-                                if ( !! window.mediaSize && window.mediaSize == 'xs' ) {
-                                    if ( $self.attr( 'data-' + settings.data_attribute ) == settings.placeholder ) {
-                                        $self.resizeUnloadImg( origImgWidth, origImgHeight );
-                                    }
-                                    else {
-                                        // destroy resize event after loading
-                                        $window.unbind( 'sizeChange.lazyloadUnload.' + eventId + ' resize.lazyloadUnload.' + eventId );
-
-                                        //console.log( 'unbind resize ' + eventId );
-                                    }
-                                }
-                            } );
-
-                        }
-                         
-                    } )
-                    .attr( 'src', settings.placeholder )
-                ;
+                $self.attr( 'src', settings.placeholder );
 
                 // set placeholders to sources
-                if ( isPicture ) {
-                    $parent.find( 'source' ).attr( 'srcset', settings.placeholder );
+                if ( $self._isPicture() ) {
+                    $self.parent().find( 'source' ).attr( 'srcset', settings.placeholder );
                 }
 
+                // set width & height since placeholder has square format
+                var origSizes = $self.getSizes();
+                var origImgWidth = origSizes[ 0 ];
+                var origImgHeight = origSizes[ 1 ];
+
+                //console.log( '--- initial sizes: ' + origImgWidth + ' x ' + origImgHeight );
+
+                if ( !! origImgWidth && !! origImgHeight ) {
+
+                    // initial resize
+                    $self.resizeUnloadImg( origImgWidth, origImgHeight );
+
+                    // events for later resize
+
+                    // media sm, md, lg: resize on sizeChange
+                    $window.on( 'sizeChange.lazyloadUnload.' + eventId, function() {
+                        //console.log( 'TRIGGERED sizeChange.lazyloadUnload.' + eventId );
+                        if ( $self.attr( 'src' ) == settings.placeholder ) {
+                            $self.resizeUnloadImg( origImgWidth, origImgHeight );
+                        }
+                    } );
+
+                    // media xs: resize on window resize
+                    $window.on( 'resize.lazyloadUnload.' + eventId, function() {
+                        //console.log( 'TRIGGERED resize.lazyloadUnload.' + eventId );
+                        if ( !! window.mediaSize && window.mediaSize == 'xs' ) {
+                            if ( $self.attr( 'src' ) == settings.placeholder ) {
+                                $self.resizeUnloadImg( origImgWidth, origImgHeight );
+                            }
+                        }
+                    } );
+                }
                 
             }
             
@@ -265,6 +271,22 @@
 
             /* When appear is triggered load original image. */
             $self.one("appear", function() {
+
+                if ( $self.is( 'img' ) ) {
+                    // unbind unload resize events (only for imgs)
+
+                    // destroy resize event after loading
+                    $window.unbind( 'sizeChange.lazyloadUnload.' + eventId + ' resize.lazyloadUnload.' + eventId );
+
+                    //console.log( 'unbind sizeChange ' + eventId );
+
+                    // destroy resize event after loading
+                    $window.unbind( 'sizeChange.lazyloadUnload.' + eventId + ' resize.lazyloadUnload.' + eventId );
+
+                    //console.log( 'unbind resize ' + eventId );
+ 
+                }
+
                 if (!this.loaded) {
                     if (settings.appear) {
                         var elements_left = elements.length;
@@ -276,7 +298,6 @@
 
                     // check if src or srcset json
                     var srcsetJson = [];
-
                     if ( preloadImgSrc.indexOf( '{' ) != -1 ) {
                         // get json
 
@@ -298,9 +319,8 @@
 
                     }
 
-                    if ( isPictureCompatibeBrowser && isPicture ) {
-
-                        var $sources = $parent.find( 'source' );
+                    if ( isPictureCompatibeBrowser && $self._isPicture() ) {
+                        var $sources = $self.parent().find( 'source' );
                         var mediaSourceMap = [];
                         var mediaMatchFound = false;
 
@@ -310,15 +330,14 @@
                             var srcset = $( this ).attr( 'data-' + settings.srcset_data_attribute );
 
                             if ( ! mediaMatchFound && ( window.matchMedia( media ).matches || ! media ) ) {
-
                                 mediaMatchFound = true; // use first match
 
                                 // load following srcset instead of img original
                                 preloadImgSrc = srcset;
                             }
 
+                            // if no match found preloadImgSrc remains default from img (as defined above)
                         } );
-
                     }
 
                     $("<img>")
@@ -326,7 +345,8 @@
 
                             if ( $self.is( "img" ) ) {
                                 $self.hide();
-                                if ( isPictureCompatibeBrowser && isPicture ) {
+                                //console.log( 'hidden (' + preloadImgSrc + ')' );
+                                if ( isPictureCompatibeBrowser && $self._isPicture() ) {
                                     // replace all sources (of which one has already been preloaded)
                                     $sources.each( function () {
                                         var srcset = $( this ).attr( 'data-' + settings.srcset_data_attribute );
@@ -337,13 +357,20 @@
                                     .attr( 'src', $self.attr( 'data-' + settings.data_attribute ) )
                                     .css( { width: '', height: '' } )
                                 ; // custom adaption
-                                //console.log( 'width / height resetted on load (' + preloadImgSrc + ')' );
+                                //console.log( 'settings.effect: ' + settings.effect );
+                                //console.log( 'settings.effect_speed: ' + settings.effect_speed );
                                 $self[ settings.effect ]( settings.effect_speed );
+                                //console.log( 'shown (' + preloadImgSrc + ')' );
                             }
                             else {
                                 // is background image
                                 var backgroundImage = $self.css("background-image");
-                                $self.css( { backgroundImage: "url('" + preloadImgSrc + "'), " + backgroundImage } ); // custom adaption: load new image and put it before old one without removing old one
+                                if ( backgroundImage.indexOf( preloadImgSrc ) == -1 ) {
+                                    $self.css( { backgroundImage: "url('" + preloadImgSrc + "'), " + backgroundImage } ); // load new image and put it before old one without removing old one
+                                }
+                                else {
+                                    $self.css( { backgroundImage: "url('" + preloadImgSrc + "')" } );
+                                }
                             }
 
                             // don't know if this event is still used or obsolete, but if required should be triggered here
@@ -489,7 +516,7 @@
                 options.effect = $image.attr( 'data-fn-effect' );
             }
 
-            $image.lazyload( options );
+            $image.lazyload( options, i );
             
         } );
 

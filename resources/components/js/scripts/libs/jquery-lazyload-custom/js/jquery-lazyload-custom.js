@@ -64,15 +64,26 @@
             picture_height_data_attribute  : "height"
         };
 
-        _getMediaMatchingSrc = function( srcsetJson ) {
+
+
+
+
+        // get responsive sources from `data-srcset` or from `data-src`
+        _getMediaMatchingSrc = function( srcsetJson, src ) {
+            var currentSrc = '';
             for ( var i = 0; i < srcsetJson.length; i++ ) {
                 //console.log( i + ': media: ' + srcsetJson[ i ].media + ', src: ' + srcsetJson[ i ].src );
-                if ( window.matchMedia( srcsetJson[ i ].media ).matches || srcsetJson[ i ].media === '' ) {
+                if ( window.matchMedia( srcsetJson[ i ].media ).matches ) {
                     //console.log( 'match: ' + srcsetJson[ i ].src );
-                    return srcsetJson[ i ].src;
+                    currentSrc = srcsetJson[ i ].src;
                     break;
                 }
             }
+            if ( currentSrc == '' ) {
+                currentSrc = src;
+            }
+            //console.log( 'currentSrc: ' + currentSrc );
+            return currentSrc;
         }
 
         $.fn._isPicture = function() {
@@ -294,28 +305,20 @@
                     }
                     // load hidden placeholder img in background, replace lazy img src on load
                     // prepare preload url, required before load placeholder
-                    var preloadImgSrc = $self.attr( 'data-' + settings.data_attribute );
+                    var srcAttrVal = $self.attr( 'data-' + settings.data_attribute );
+                    var preloadImgSrc = srcAttrVal;
+                    var preloadImgSrcset = $self.attr( 'data-' + settings.srcset_data_attribute );
 
                     // check if src or srcset json
                     var srcsetJson = [];
-                    if ( preloadImgSrc.indexOf( '{' ) != -1 ) {
+                    if ( !! preloadImgSrcset ) {
                         // get json
 
-                        srcsetJson = ( new Function( 'return ' + preloadImgSrc ) )();
+                        srcsetJson = ( new Function( 'return ' + preloadImgSrcset ) )();
 
                         // get img src to preload
-                        preloadImgSrc = _getMediaMatchingSrc( srcsetJson );
-
-                        // if not img (is background) add sizeChange event listener to change background img
-                        if ( isBgImg ) {
-
-                            $window.on( 'sizeChange', function() {
-                                var currentImgSrc = _getMediaMatchingSrc( srcsetJson );
-                                //console.log( '----- changed to: ' + currentImgSrc );
-                                $self.css( { backgroundImage: "url('" + currentImgSrc + "')" } );
-                            } );
-
-                        }
+                        preloadImgSrc = _getMediaMatchingSrc( srcsetJson, srcAttrVal );
+                        //console.log( 'preloadImgSrc: ' + preloadImgSrc );
 
                     }
 
@@ -371,6 +374,13 @@
                                 else {
                                     $self.css( { backgroundImage: "url('" + preloadImgSrc + "')" } );
                                 }
+
+                                // add sizeChange event listener to change background img
+                                $window.on( 'sizeChange', function() {
+                                    var currentImgSrc = _getMediaMatchingSrc( srcsetJson, srcAttrVal );
+                                    //console.log( '----- changed to: ' + currentImgSrc );
+                                    $self.css( { backgroundImage: "url('" + currentImgSrc + "')" } );
+                                } );
                             }
 
                             // don't know if this event is still used or obsolete, but if required should be triggered here

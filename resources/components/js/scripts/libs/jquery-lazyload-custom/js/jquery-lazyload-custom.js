@@ -64,16 +64,12 @@
             picture_height_data_attribute  : "height"
         };
 
-
-
-
-
-        // get responsive sources from `data-srcset` or from `data-src`
+        // get responsive sources from `data-srcset` and/or from `data-src`
         _getMediaMatchingSrc = function( srcsetJson, src ) {
             var currentSrc = '';
             for ( var i = 0; i < srcsetJson.length; i++ ) {
                 //console.log( i + ': media: ' + srcsetJson[ i ].media + ', src: ' + srcsetJson[ i ].src );
-                if ( window.matchMedia( srcsetJson[ i ].media ).matches ) {
+                if ( typeof srcsetJson[ i ].media != 'undefined' && typeof srcsetJson[ i ].src != 'undefined' && window.matchMedia( srcsetJson[ i ].media ).matches ) {
                     //console.log( 'match: ' + srcsetJson[ i ].src );
                     currentSrc = srcsetJson[ i ].src;
                     break;

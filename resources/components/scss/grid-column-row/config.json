@@ -1,0 +1,9 @@
+{
+	"scss": {
+		"use": [
+			{
+				"key": "/scss/_grid-column-row.scss"
+			}
+		]
+	}
+}

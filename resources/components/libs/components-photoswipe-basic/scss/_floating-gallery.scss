@@ -1,0 +1,33 @@
+// floating gallery
+
+
+.bsx-floating-gallery-inner {
+    margin: -$bsx-floating-gallery-margin;
+}
+.bsx-floating-gallery-figure {
+    margin: $bsx-floating-gallery-margin;
+
+    img {
+	    width: auto;
+	    max-width: unset;
+    }
+}
+
+
+.bsx-floating-gallery-img-xs {
+    height: $bsx-floating-gallery-xs-height;
+}
+.bsx-floating-gallery-img-sm {
+    height: $bsx-floating-gallery-sm-height;
+}
+.bsx-floating-gallery-img-md {
+    height: $bsx-floating-gallery-md-max-height; // fallback
+    height: $bsx-floating-gallery-md-height;
+    max-height: $bsx-floating-gallery-md-max-height;
+}
+.bsx-floating-gallery-img-lg {
+    height: $bsx-floating-gallery-lg-height;
+}
+.bsx-floating-gallery-img-xl {
+    height: $bsx-floating-gallery-xl-height;
+}

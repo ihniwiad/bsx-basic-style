@@ -10,6 +10,9 @@
 		"addVariables": [
 			{
 				"key": "/scss/_variables.scss"
+			},
+			{
+				"key": "/scss/_floating-gallery-variables.scss"
 			}
 		],
 		"use": [
@@ -21,6 +24,9 @@
 			},
 			{
 				"key": "/scss/_photoswipe.scss"
+			},
+			{
+				"key": "/scss/_floating-gallery.scss"
 			}
 		]
 	},

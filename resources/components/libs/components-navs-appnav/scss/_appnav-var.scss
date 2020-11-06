@@ -55,8 +55,21 @@ $bsx-appnav-navbar-box-shadow:				0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 15px 0 rgba(
 
 // nav (container)
 
+// mobile only
+$bsx-appnav-navbar-container-mobile-padding-left: 	'' !default;
+$bsx-appnav-navbar-container-mobile-padding-right: 	'' !default;
+
 
 // brand
+
+$bsx-appnav-navbar-brand-margin-left:		auto !default;
+$bsx-appnav-navbar-brand-margin-right:		auto !default;
+$bsx-appnav-navbar-brand-padding:			.33rem .75rem !default;
+$bsx-appnav-navbar-brand-max-width:			40vw !default;
+$bsx-appnav-navbar-brand-align-items:		center !default;
+$bsx-appnav-navbar-brand-font-size:			$font-size-lg !default;
+$bsx-appnav-navbar-brand-line-height:		inherit !default;
+
 
 
 // collapse
@@ -127,6 +140,10 @@ $bsx-appnav-link-px:							0.66667em !default;
 $bsx-appnav-link-py:							0.66667em !default;
 
 $bsx-appnav-desktop-level-1-link-py:			1em !default;
+
+// link level 1 display & alignment
+$bsx-appnav-desktop-level-1-link-display:		flex !default;
+$bsx-appnav-desktop-level-1-link-align-items:	center !default;
 
 // bigmenu link padding
 $bsx-appnav-desktop-bigmenu-level-2-link-px:	1.33333em !default;

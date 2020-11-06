@@ -67,14 +67,14 @@
 
 .bsx-appnav-navbar-brand {
 	display: flex;
-	margin-left: auto;
-	margin-right: auto;
-	padding: .33rem .75rem;
-	align-items: center;
-	font-size: $font-size-lg;
-	line-height: inherit;
+	margin-left: $bsx-appnav-navbar-brand-margin-left;
+	margin-right: $bsx-appnav-navbar-brand-margin-right;
+	padding: $bsx-appnav-navbar-brand-padding;
+	align-items: $bsx-appnav-navbar-brand-align-items;
+	font-size: $bsx-appnav-navbar-brand-font-size;
+	line-height: $bsx-appnav-navbar-brand-line-height;
 	white-space: nowrap;
-	max-width: 40vw;
+	max-width: $bsx-appnav-navbar-brand-max-width;
 
 	@include bsx-hover-focus {
 		text-decoration: none;
@@ -146,6 +146,18 @@
 	flex-direction: row;
 }
 
+@include bsx-appnav-navigation(mobile) {
+
+	.bsx-appnav-navbar-container {
+		@if $bsx-appnav-navbar-container-mobile-padding-left != '' {
+			padding-left: $bsx-appnav-navbar-container-mobile-padding-left;
+		}
+		@if $bsx-appnav-navbar-container-mobile-padding-right != '' {
+			padding-right: $bsx-appnav-navbar-container-mobile-padding-right;
+		}
+	}
+}
+
 
 // NAVBAR COLLAPSE
 
@@ -204,6 +216,13 @@
 				padding-top: $bsx-appnav-desktop-level-1-link-py;
 				padding-bottom: $bsx-appnav-desktop-level-1-link-py;
 
+				@if $bsx-appnav-desktop-level-1-link-display != '' {
+					display: $bsx-appnav-desktop-level-1-link-display;
+				}
+				@if $bsx-appnav-desktop-level-1-link-align-items != '' {
+					align-items: $bsx-appnav-desktop-level-1-link-align-items;
+				}
+
 			}
 
 			position: relative;
@@ -242,7 +261,7 @@
 }
 
 
-// ALLMEDIA DROPDOWN NAV
+// ALLMEDIA DROPDOWN NAV (always looking like desktop dropdown variation of appnav)
 
 // navbar nav
 .bsx-appnav-navbar-nav.bsx-allmedia-dropdown-nav {
@@ -260,6 +279,13 @@
 
 			padding-top: $bsx-appnav-desktop-level-1-link-py;
 			padding-bottom: $bsx-appnav-desktop-level-1-link-py;
+
+			@if $bsx-appnav-desktop-level-1-link-display != '' {
+				display: $bsx-appnav-desktop-level-1-link-display;
+			}
+			@if $bsx-appnav-desktop-level-1-link-align-items != '' {
+				align-items: $bsx-appnav-desktop-level-1-link-align-items;
+			}
 
 		}
 

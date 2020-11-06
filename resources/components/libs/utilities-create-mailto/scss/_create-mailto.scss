@@ -1,0 +1,11 @@
+// style
+
+
+// MARKUP
+//
+// <a class="create-mt" data-fn="create-mt" data-mt-n="info" data-mt-d="example" data-mt-s="com"></a>
+
+
+.create-mt::before {
+	content: attr(data-mt-n)"\40"attr(data-mt-d)"."attr(data-mt-s);
+}

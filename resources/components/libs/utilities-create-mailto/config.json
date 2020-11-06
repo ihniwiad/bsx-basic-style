@@ -1,0 +1,19 @@
+{
+	"scss": {
+		"use": [
+			{
+				"key": "/scss/_create-mailto.scss"
+			}
+		]
+	},
+	"js": {
+		"use": [
+			{
+				"key": "/js/create-mailto.js"
+			}
+		],
+		"dependencies": null
+	},
+	"view": null,
+	"copyFiles": null
+}

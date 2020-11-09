@@ -21,7 +21,10 @@ MARKUP
 		var p = 'ma' + 'il' + 'to:';
 
 		$.fn._addHref = function( href, index ) {
-            if ( typeof $( this ).attr( 'href' ) == 'undefined' ) {
+            if ( 
+                typeof $( this ).attr( 'href' ) == 'undefined' 
+                || $( this ).attr( 'href' ).replace( / /g, '' ).indexOf( 'javascript:void(0)' ) == 0
+            ) {
                 $( this )
                     .attr( 'href', href )
                     .off( 'mouseenter.' + index )

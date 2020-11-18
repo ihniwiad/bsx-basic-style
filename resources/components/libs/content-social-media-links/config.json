@@ -1,0 +1,14 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_social-media-links-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_social-media-links.scss"
+			}
+		]
+	}
+}

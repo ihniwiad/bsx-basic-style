@@ -1,0 +1,28 @@
+// style
+
+
+// make color & hover color classes
+
+@mixin make-social-media-color-links($colors: $bsx-social-media-colors, $prefix: $bsx-social-media-color-prefix, $hover-prefix: $bsx-social-media-hover-color-prefix) {
+	@each $name, $color in $colors {
+	    .#{$prefix}#{$name} {
+	    	color: #{$color} !important;
+	    }
+	    .#{$hover-prefix}#{$name} {
+	        &:hover,
+	        &:focus {
+	            color: #{$color} !important;
+	        }
+	    }
+	}
+}
+
+
+// call mixing
+
+@include make-social-media-color-links();
+
+
+[class*="#{$bsx-social-media-hover-color-prefix}"] {
+	transition: $bsx-social-media-hover-color-transition;
+}

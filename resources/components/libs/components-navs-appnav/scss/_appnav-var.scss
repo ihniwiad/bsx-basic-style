@@ -71,6 +71,11 @@ $bsx-appnav-navbar-brand-font-size:			$font-size-lg !default;
 $bsx-appnav-navbar-brand-line-height:		inherit !default;
 
 
+// logo
+
+$bsx-appnav-navbar-logo-max-width: 			100% !default;
+$bsx-appnav-navbar-logo-height: 			auto !default;
+
 
 // collapse
 
@@ -114,6 +119,9 @@ $bsx-appnav-active-color:									$bsx-appnav-quickstart-hover-color !default;
 $bsx-appnav-icon-color:										lighten($bsx-appnav-color, 10) !default;
 $bsx-appnav-icon-hover-color:								$bsx-appnav-quickstart-icon-hover-color !default;
 $bsx-appnav-icon-active-color:								$bsx-appnav-quickstart-icon-hover-color !default;
+
+// link appearance
+$bsx-appnav-link-text-decoration:							none !default;
 
 // font weight
 $bsx-appnav-basic-font-weight:						400 !default;

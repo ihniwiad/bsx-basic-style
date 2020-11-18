@@ -62,6 +62,7 @@
 
 		> a {
 			color: $bsx-appnav-color;
+			text-decoration: $bsx-appnav-link-text-decoration;
 		}
 
 		&.active > a {

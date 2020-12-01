@@ -1,0 +1,21 @@
+// grid float
+
+
+@include media-breakpoint-up(md) {
+	.grid-float-md-4 {
+		width: calc(33.3333% - #{$grid-float-gutter / 2});
+	}
+	.grid-float-md-6 {
+		width: calc(50% - #{$grid-float-gutter / 2});
+	}
+	.grid-float-md-8 {
+		width: calc(66.6667% - #{$grid-float-gutter / 2});
+	}
+	.float-md-left[class*="grid-float-md-"] {
+		margin-right: $grid-float-gutter !important;
+	}
+	.float-md-right[class*="grid-float-md-"] {
+		margin-left: $grid-float-gutter !important;
+	}
+}
+

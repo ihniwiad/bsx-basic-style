@@ -1,0 +1,22 @@
+// rem cols
+
+
+%bsx-grid-column {
+	position: relative;
+	width: 100%;
+	min-height: 1px; // Prevent columns from collapsing when empty
+	padding-right: ($bsx-grid-gutter-width / 2);
+	padding-left: ($bsx-grid-gutter-width / 2);
+}
+
+@each $size in $bsx-rem-col-sizes {
+    
+	.col-rem-#{$size} {
+
+		@extend %bsx-grid-column;
+
+		flex: 0 0 #{$size}rem;
+	 	max-width: #{$size}rem; 
+	}
+}
+

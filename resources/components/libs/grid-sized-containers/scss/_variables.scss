@@ -1,0 +1,9 @@
+// variables
+
+
+// use `2 * $bsx-text-column-max-width + $bsx-grid-gutter-width` instead of 1470px ?
+$bsx-sized-container-sizes: (
+	lg: 1470px,
+	xl: 2000px
+) !default;
+

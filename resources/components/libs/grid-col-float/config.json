@@ -1,0 +1,20 @@
+{
+	"srcPlugin": 0,
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_variables.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_grid-float.scss"
+			}
+		],
+		"dependencies": null
+	},
+	"js": null,
+	"view": null,
+	"copyFiles": null,
+	"lang": null
+}

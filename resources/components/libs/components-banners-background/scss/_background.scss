@@ -47,6 +47,13 @@ body.is-android .bg-mobile-no-repeat {
 	background-repeat: no-repeat;
 }
 
+// screen dependent bg static
+@media ( min-width: 2000px ) {
+	.bg-w2000-static {
+		background-attachment: scroll !important;
+	}
+}
+
 // bg size
 .bg-cover {
 	background-size: cover;

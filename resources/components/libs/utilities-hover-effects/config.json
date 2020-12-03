@@ -1,0 +1,14 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_hover-effects-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_hover-effects.scss"
+			}
+		]
+	}
+}

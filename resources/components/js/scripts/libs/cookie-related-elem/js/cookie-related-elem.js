@@ -93,7 +93,7 @@
 			// bind hide elem & cookie set (if options.remoteOpenable always set close click event to be able to close manually after open remote)
 			$close.on( 'click', function() {
 
-				console.log( 'close clicked' );
+				// console.log( 'close clicked' );
 
 				// set cookie, hide elem
 				if ( !! options.cookieName && !! options.hiddenCookieValue && !! options.cookieExpiresDays && !! options.cookiePath ) {

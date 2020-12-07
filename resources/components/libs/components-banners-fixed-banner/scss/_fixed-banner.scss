@@ -1,0 +1,16 @@
+// fixed-banner
+
+
+
+.fixed-banner {
+	position: fixed;
+	z-index: $bsx-fixed-banner-z-index;
+	left: 0;
+	right: 0;
+}
+.fixed-banner-top {
+	top: 0;
+}
+.fixed-banner-bottom {
+	bottom: 0;
+}

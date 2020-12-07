@@ -1,0 +1,19 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_fixed-banner-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_fixed-banner.scss"
+			}
+		],
+		"atf": [
+			{
+				"key": "/scss/_fixed-banner-atf.scss"
+			}
+		]
+	}
+}

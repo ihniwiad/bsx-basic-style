@@ -41,17 +41,21 @@
 <!-- hidden scripts -->
 <div aria-hidden="true" data-tg="data-processing-consent-content">
 
-    <script type="text/x-template" data-category="analytics" data-position="header" src="https://cdn01.plentymarkets.com/avw8j9fg70hi/frontend/tmp/dev_testing/testing.js"></script>
+    <script type="text/x-template" data-category="analytics" data-position="header" src="http://localhost/tmp/dev-testing/testing.js"></script>
     <script type="text/x-template" data-category="analytics" data-position="header">
-        console.log( '      -> from script: inline testing script executed' );
+        console.log( 'hello from inline script' );
     </script>
     
-    <script type="text/x-template" data-category="other-category" src="https://cdn01.plentymarkets.com/avw8j9fg70hi/frontend/tmp/dev_testing/testing-2.js"></script>
+    <script type="text/x-template" data-category="other-category" src="http://localhost/tmp/dev-testing/testing-2.js"></script>
     <script type="text/x-template" data-category="other-category">
-        console.log( '      -> from script: inline testing 2 script executed' );
+        console.log( 'hello from inline script 2' );
     </script>
 	
 </div>
+
+
+<!-- single cat consent trigger -->
+<button class="btn btn-primary" data-fn="data-processing-cat-consent-trigger" data-fn-options="{ cat: 'other-category' }">Allow “Other category”</button>
 
 
 */
@@ -139,6 +143,29 @@
         
         $consentForm.trigger( 'submit' );
 	} );
+
+
+	// TODO: allow single category button (e.g. load Google map(s) on click)
+	var $singleCatConsentTriggers = Utils.$functionElems.filter( '[data-fn~="data-processing-cat-consent-trigger"]' );
+
+	$singleCatConsentTriggers.each( function() {
+
+		var $singleCatConsentTrigger = $( this );
+	
+		var triggerOtions = $singleCatConsentTrigger.getOptionsFromAttr();
+		var currentCategory = triggerOtions.cat || null;
+	
+		$singleCatConsentTrigger.on( 'click', function( event ) {
+			
+	        event.preventDefault();
+
+        	$categoryIputs.filter( '[value="' + currentCategory + '"]' ).prop( 'checked', true );
+	        
+	        $consentForm.trigger( 'submit' );
+		} );
+
+	} );
+
 	
 	
 	// bind form sumbit

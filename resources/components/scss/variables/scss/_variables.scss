@@ -203,6 +203,11 @@ $bsx-sm-container-width: 	map-get($container-max-widths, "sm") !default;
 $bsx-grid-gutter-width: 	$grid-gutter-width !default;
 
 
+// Z-INDEX
+
+$bsx-fixed-z-index: 		$zindex-fixed + 1 !default;
+
+
 // FONT
 
 $bsx-body-color:				$body-color !default;

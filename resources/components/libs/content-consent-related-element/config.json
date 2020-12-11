@@ -1,0 +1,14 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_consent-related-element-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_consent-related-element.scss"
+			}
+		]
+	}
+}

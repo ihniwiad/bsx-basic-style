@@ -1,3 +1,5 @@
+// TODO: add cookie list to remove existing cookies after disallow
+
 /*
 
 <!-- button to show consent popup -->
@@ -55,8 +57,12 @@
 
 
 <!-- single cat consent trigger -->
-<button class="btn btn-primary" data-fn="data-processing-cat-consent-trigger" data-fn-options="{ cat: 'other-category' }">Allow “Other category”</button>
+<button class="btn btn-primary test-hello" data-fn="data-processing-cat-consent-trigger" data-fn-options="{ cat: 'other-category', consentClass: 'd-none', nonConsentClass: 'test-hello' }">Allow “Other category”</button>
 
+<!-- wrapped single cat consent trigger -->
+<div data-g-tg="consent-trigger-wrapper">
+	<button class="btn btn-primary test-hello" data-fn="data-processing-cat-consent-trigger" data-fn-options="{ cat: 'other-category', consentClass: 'd-none', nonConsentClass: 'test-hello', classTarget: '[data-g-tg=consent-trigger-wrapper]' }">Allow “Other category”</button>
+</div>
 
 */
 
@@ -77,6 +83,8 @@
 	
 	var $consentForm = Utils.$functionElems.filter( '[data-fn="data-processing-form"]' );
 	var $consentBanner = Utils.$targetElems.filter( '[data-tg="data-processing-popup"]' );
+	var $saveAllButton = $consentForm.find( '[data-g-fn="allow-all"]' );
+	var $singleCatConsentTriggers = Utils.$functionElems.filter( '[data-fn~="data-processing-cat-consent-trigger"]' );
 	
 	// get categories, read cookie, set checkboxes according to cookie value
 	
@@ -95,7 +103,6 @@
 		renewCookie = true;
 	}
 	
-	
 	var $categoryIputs = $consentForm.find( options.categoryInputSelector );
 	var categories = [];
 	$categoryIputs.each( function() {
@@ -111,6 +118,9 @@
 				if ( consentStatus.cats[ i ].cons == 1 ) {
 					// set checked
 					$( this ).prop( 'checked', true );
+
+					// initial set each single category button status
+					setCatConsentTriggers( currentCategory, true );
 				}
 			}
 		}
@@ -131,8 +141,6 @@
     
     
     // bind allow all button (before bind form submit)
-	var $saveAllButton = $consentForm.find( '[data-g-fn="allow-all"]' );
-	
 	$saveAllButton.on( 'click', function( event ) {
 		
         event.preventDefault();
@@ -145,15 +153,13 @@
 	} );
 
 
-	// TODO: allow single category button (e.g. load Google map(s) on click)
-	var $singleCatConsentTriggers = Utils.$functionElems.filter( '[data-fn~="data-processing-cat-consent-trigger"]' );
-
+	// allow single category button (e.g. load Google map(s) on click on map containing element)
 	$singleCatConsentTriggers.each( function() {
 
 		var $singleCatConsentTrigger = $( this );
 	
-		var triggerOtions = $singleCatConsentTrigger.getOptionsFromAttr();
-		var currentCategory = triggerOtions.cat || null;
+		var triggerOptions = $singleCatConsentTrigger.getOptionsFromAttr();
+		var currentCategory = triggerOptions.cat || null;
 	
 		$singleCatConsentTrigger.on( 'click', function( event ) {
 			
@@ -165,7 +171,6 @@
 		} );
 
 	} );
-
 	
 	
 	// bind form sumbit
@@ -173,15 +178,21 @@
         event.preventDefault();
         $categoryIputs.each( function() {
 
-        	var currentValue = $( this ).attr( 'value' );
-        	var currentChecked = $( this ).is( ':checked' );
+        	var currentCategory = $( this ).attr( 'value' );
+        	var currentConsent = $( this ).is( ':checked' );
+
+        	// console.log( '$categoryIputs.each: ' + currentCategory );
         	
         	// update consent object
 			for ( var i = 0; i < consentStatus.cats.length; i++ ) {
-				if ( consentStatus.cats[ i ].name == currentValue ) {
-        			consentStatus.cats[ i ].cons = ( currentChecked ) ? 1 : 0;
+				if ( consentStatus.cats[ i ].name == currentCategory ) {
+        			consentStatus.cats[ i ].cons = ( currentConsent ) ? 1 : 0;
 				}
 			}
+
+			// set each single category button status
+			setCatConsentTriggers( currentCategory, currentConsent );
+
         } );
         
         
@@ -222,6 +233,49 @@
         }
         
     } );
+
+
+	// set cat consent triggers to current state
+	function setCatConsentTriggers( currentCategory, currentConsent ) {
+
+		var $currentCatTriggers = $singleCatConsentTriggers.filter( '[data-fn-options*="cat: \'' + currentCategory + '\'"]' );
+
+		$currentCatTriggers.each( function( index, elem ) {
+
+    		// console.log( '$currentCatTriggers.each: ' + index );
+
+			var $currentCatTrigger = $( this );
+		
+			var triggerOptions = $currentCatTrigger.getOptionsFromAttr();
+			var consentClass = triggerOptions.consentClass || '';
+			var nonConsentClass = triggerOptions.nonConsentClass || '';
+
+			var $classTarget = ( triggerOptions.classTarget ) ? $currentCatTrigger.closest( triggerOptions.classTarget ) : $currentCatTrigger;
+
+    		// console.log( 'consentClass: ' + consentClass );
+
+			if ( consentClass ) {
+
+				if ( currentConsent ) {
+					$classTarget.addClass( consentClass );
+				}
+				else {
+					$classTarget.removeClass( consentClass );
+				}
+			}
+
+			if ( nonConsentClass ) {
+				if ( currentConsent ) {
+					$classTarget.removeClass( nonConsentClass );
+				}
+				else {
+					$classTarget.addClass( nonConsentClass );
+				}
+			}
+
+		} );
+
+	}
         
         
     // initial apply of script content if consent given via cookie

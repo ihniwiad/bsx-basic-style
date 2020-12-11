@@ -1,0 +1,26 @@
+// style
+
+
+.bsx-clickable-overlay-wrapper {
+	position: relative;
+}
+.bsx-clickable-overlay {
+	position: absolute;
+	display: $bsx-clickable-overlay-display;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	align-items: $bsx-clickable-overlay-align-items;
+	justify-content: $bsx-clickable-overlay-justify-content;
+	background-color: $bsx-clickable-overlay-bg-color;
+	color: $bsx-clickable-overlay-color;
+	border: $bsx-clickable-overlay-border;
+	padding: $bsx-clickable-overlay-padding;
+	cursow: $bsx-clickable-overlay-cursor;
+	transition: $bsx-clickable-overlay-transition;
+
+	@include bsx-hover-focus() {
+		// background-color: $bsx-clickable-overlay-bg-hover-color;
+	}
+}

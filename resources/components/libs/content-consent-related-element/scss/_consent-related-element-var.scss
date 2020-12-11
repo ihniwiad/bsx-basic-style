@@ -1,0 +1,15 @@
+// var
+
+
+$bsx-clickable-overlay-bg-color:		rgba($black, 0.35) !default;
+// $bsx-clickable-overlay-bg-hover-color:	rgba($black, 0.45) !default;
+$bsx-clickable-overlay-transition:		$bsx-basic-transition !default;
+$bsx-clickable-overlay-color:         	$white !default;
+
+$bsx-clickable-overlay-display:         flex !default;
+$bsx-clickable-overlay-align-items:     center !default;
+$bsx-clickable-overlay-justify-content: center !default;
+
+$bsx-clickable-overlay-border:         	0 !default;
+$bsx-clickable-overlay-padding:         1rem !default;
+$bsx-clickable-overlay-cursor:         	pointer !default;

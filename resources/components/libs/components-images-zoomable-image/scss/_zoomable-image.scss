@@ -1,0 +1,33 @@
+// style
+
+
+.zoomable-img {
+    position: relative;
+    cursor: pointer;
+    display: $bsx-zoomable-img-display;
+
+    &:after {
+	    content: $bsx-zoomable-img-after-content;
+	    display: block;
+	    position: absolute;
+	    right: 0;
+	    bottom: 0;
+	    padding: $bsx-zoomable-img-after-padding;
+	    background: $bsx-zoomable-img-after-bg-color;
+	    font-family: $bsx-zoomable-img-after-font-family;
+	    color: $bsx-zoomable-img-after-color;
+	    border-radius: $bsx-zoomable-img-after-border-radius;
+	    border-color: $bsx-zoomable-img-after-border-color;
+		border-width: $bsx-zoomable-img-after-border-width;
+		border-style: $bsx-zoomable-img-after-border-style;
+	    transition: $bsx-zoomable-img-after-transition;
+    }
+
+    @include hover-focus {
+    	&:after {
+	    	color: $bsx-zoomable-img-after-hover-color;
+    		background: $bsx-zoomable-img-after-hover-bg-color;
+	    	border-color: $bsx-zoomable-img-after-hover-border-color;
+    	}
+    }
+}

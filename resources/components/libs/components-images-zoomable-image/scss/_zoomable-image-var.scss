@@ -1,0 +1,21 @@
+// variables
+
+$bsx-zoomable-img-display: 						inline-block !default;
+
+$bsx-zoomable-img-after-color: 					rgba( $white, 0.8 ) !default;
+$bsx-zoomable-img-after-hover-color: 			$white !default;
+$bsx-zoomable-img-after-bg-color: 				rgba( $black, 0.35 ) !default;
+$bsx-zoomable-img-after-hover-bg-color: 		rgba( $black, 0.5 ) !default;
+$bsx-zoomable-img-after-border-color: 			rgba( $white, 0.5 ) !default;
+$bsx-zoomable-img-after-hover-border-color: 	rgba( $white, 0.85 ) !default;
+
+$bsx-zoomable-img-after-border-style: 			solid none none solid !default;
+$bsx-zoomable-img-after-border-width: 			1px !default;
+
+$bsx-zoomable-img-after-font-family: 			$bsx-icon-font-family !default;
+$bsx-zoomable-img-after-content: 				"\f0b2" !default; // fullscreen: \f0b2 – magnifier: \f00e
+
+$bsx-zoomable-img-after-padding: 				0.25rem 0.5rem !default;
+$bsx-zoomable-img-after-border-radius: 			0.25rem 0 0 0 !default;
+
+$bsx-zoomable-img-after-transition: 			$bsx-basic-transition !default;

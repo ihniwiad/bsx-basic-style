@@ -1,0 +1,15 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_zoomable-image-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_zoomable-image.scss"
+			}
+		],
+		"atf": null
+	}
+}

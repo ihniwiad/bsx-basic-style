@@ -134,9 +134,9 @@ if ( ! class_exists( 'BsxBasicFooterExampleFooter001' ) ) {
 			<div class="col-sm mb-1">
 				&copy; Copyright '.date_format( date_create(), 'Y' ).' <a class="footer-link" href="#">somebody</a>
 			</div>
-			<div class="col-sm text-sm-right mb-1">
+			<nav class="col-sm text-sm-right mb-1">
 				<a class="footer-link" href="#">Some</a>&ensp;|&ensp;<a class="footer-link" href="#">More</a>&ensp;|&ensp;<a class="footer-link" href="#">Links</a>
-			</div>
+			</nav>
 		</div>
 
 	</div>

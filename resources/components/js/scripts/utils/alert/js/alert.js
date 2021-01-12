@@ -2,9 +2,9 @@
 <!-- ALERT MODAL -->
 
 <!-- alert modal (empty) -->
-<div class="modal fade plenty-alert-modal" tabindex="-1" role="alert" data-tg="plenty-alert-modal">
+<div class="modal fade bsx-alert-modal" tabindex="-1" role="alert" data-tg="bsx-alert-modal">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content" data-tg="plenty-alert-modal-content">
+		<div class="modal-content" data-tg="bsx-alert-modal-content">
 		</div>
 	</div>
 </div>
@@ -13,10 +13,10 @@
 
 	<!-- alert template to clone into alert modal -->
 
-	<div class="alert alert-danger alert-dismissible my-1" data-tg="plenty-error-alert">
-		<div class="font-weight-bold" data-g-tg="plenty-alert-title"></div>
-		<div class="d-inline">Code <span data-g-tg="plenty-alert-code">0</span>: </div>
-		<div class="d-inline" data-g-tg="plenty-alert-content"></div>
+	<div class="alert alert-danger alert-dismissible my-1" data-tg="bsx-error-alert">
+		<div class="font-weight-bold" data-g-tg="bsx-alert-title"></div>
+		<div class="d-inline">Code <span data-g-tg="bsx-alert-code">0</span>: </div>
+		<div class="d-inline" data-g-tg="bsx-alert-content"></div>
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">×</span>
 		</button>
@@ -24,10 +24,10 @@
 
 	<!-- message template to clone into alert modal -->
 
-	<div class="alert alert-success alert-dismissible my-1" data-tg="plenty-message-alert">
-		<div class="font-weight-bold" data-g-tg="plenty-alert-title"></div>
-		<div data-g-tg="plenty-alert-content"></div>
-		<span class="modal-countdown" data-g-tg="plenty-alert-countdown" style="display: none;"></span>
+	<div class="alert alert-success alert-dismissible my-1" data-tg="bsx-message-alert">
+		<div class="font-weight-bold" data-g-tg="bsx-alert-title"></div>
+		<div data-g-tg="bsx-alert-content"></div>
+		<span class="modal-countdown" data-g-tg="bsx-alert-countdown" style="display: none;"></span>
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">×</span>
 		</button>
@@ -50,10 +50,10 @@
 	Alert.adaptAlert = function( currentAlert, options ) {
 
 		var defaults = {
-			titleSelector: '[data-g-tg="plenty-alert-title"]',
-			contentSelector: '[data-g-tg="plenty-alert-content"]',
-			codeSelector: '[data-g-tg="plenty-alert-code"]',
-			countdownSelector: '[data-g-tg="plenty-alert-countdown"]',
+			titleSelector: '[data-g-tg="bsx-alert-title"]',
+			contentSelector: '[data-g-tg="bsx-alert-content"]',
+			codeSelector: '[data-g-tg="bsx-alert-code"]',
+			countdownSelector: '[data-g-tg="bsx-alert-countdown"]',
 			title: 'Unknown message',
 			content: 'Message information missing.'
 		};
@@ -246,11 +246,11 @@
 		Alert.options = $.extend( {}, defaults, options );
 		*/
 
-		Alert.$modal = Utils.$targetElems.filter( '[data-tg="plenty-alert-modal"]' );
-        Alert.$modalContent = Utils.$targetElems.filter( '[data-tg="plenty-alert-modal-content"]' );
+		Alert.$modal = Utils.$targetElems.filter( '[data-tg="bsx-alert-modal"]' );
+        Alert.$modalContent = Utils.$targetElems.filter( '[data-tg="bsx-alert-modal-content"]' );
 
-        Alert.$errorAlert = Utils.$targetElems.filter( '[data-tg="plenty-error-alert"]' );
-        Alert.$messageAlert = Utils.$targetElems.filter( '[data-tg="plenty-message-alert"]' );
+        Alert.$errorAlert = Utils.$targetElems.filter( '[data-tg="bsx-error-alert"]' );
+        Alert.$messageAlert = Utils.$targetElems.filter( '[data-tg="bsx-message-alert"]' );
 
 	}
 
@@ -258,7 +258,7 @@
 	Alert.init();
 
 	/*
-	$.fn.plentyAlert = function( options ) {
+	$.fn.bsxAlert = function( options ) {
 
         var defaults = {
         	defaultClass: 'alert alert-dismissible m-0',
@@ -275,9 +275,9 @@
         options = $.extend( {}, defaults, options );
 
         var $modal = $( this );
-        var $modalAlert = Utils.$targetElems.filter( '[data-tg="plenty-alert"]' );
-        var $modalAlertTitle = Utils.$targetElems.filter( '[data-tg="plenty-alert-title"]' );
-        var $modalAlertContent = Utils.$targetElems.filter( '[data-tg="plenty-alert-content"]' );
+        var $modalAlert = Utils.$targetElems.filter( '[data-tg="bsx-alert"]' );
+        var $modalAlertTitle = Utils.$targetElems.filter( '[data-tg="bsx-alert-title"]' );
+        var $modalAlertContent = Utils.$targetElems.filter( '[data-tg="bsx-alert-content"]' );
 
 		var title = ( typeof options.title === 'object' ) ? options.title[ Utils.lang ] : options.title;
 		var content = ( typeof options.content === 'object' ) ? options.content[ Utils.lang ] : options.content;
@@ -305,8 +305,8 @@
 		if ( options.autoclose && Number( parseFloat( options.autocloseDelay ) ) === options.autocloseDelay ) {
 			$modal.autoclose( {
 				autoclose: true,
-				$countdownElem: Utils.$targetElems.filter( '[data-tg="plenty-alert-countdown"]' ),
-				$pauseEventElem: Utils.$targetElems.filter( '[data-tg="plenty-alert"]' )
+				$countdownElem: Utils.$targetElems.filter( '[data-tg="bsx-alert-countdown"]' ),
+				$pauseEventElem: Utils.$targetElems.filter( '[data-tg="bsx-alert"]' )
 			} );
 		}
 	}
@@ -315,11 +315,11 @@
 	// init
 	// TEST – TODO: remove
 	/*
-	Utils.$functionElems.filter( '[data-fn="plenty-alert-modal-trigger"]' ).on( 'click', function() {
+	Utils.$functionElems.filter( '[data-fn="bsx-alert-modal-trigger"]' ).on( 'click', function() {
 
-		var $alertModal = Utils.$targetElems.filter( '[data-tg="plenty-message-modal"]' );
+		var $alertModal = Utils.$targetElems.filter( '[data-tg="bsx-message-modal"]' );
 
-		$alertModal.plentyAlert( {
+		$alertModal.bsxAlert( {
         	stateClass: 'alert-success',
         	autoclose: true,
         	autocloseDelay: 5000,
@@ -336,7 +336,7 @@
 	*/
 	/*
 	// TEST – TODO: remove
-	Utils.$functionElems.filter( '[data-fn="plenty-add-message-alert"]' ).on( 'click', function() {
+	Utils.$functionElems.filter( '[data-fn="bsx-add-message-alert"]' ).on( 'click', function() {
 		var options = {
 			title: 'Message',
 			content: 'Faucibus tincidunt.',
@@ -345,7 +345,7 @@
 		Alert.showMessage( options );
 	} );
 	// TEST – TODO: remove
-	Utils.$functionElems.filter( '[data-fn="plenty-add-error-alert"]' ).on( 'click', function() {
+	Utils.$functionElems.filter( '[data-fn="bsx-add-error-alert"]' ).on( 'click', function() {
 		var options = {
 			errorCode: 123,
 			title: 'Fehler',

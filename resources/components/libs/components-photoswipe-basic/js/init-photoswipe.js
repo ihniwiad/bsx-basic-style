@@ -26,6 +26,14 @@ minimum structure (items don't have to be direct children of gallery and don't h
     ...
 </div>
 
+one-item-gallery (gallery is item):
+
+<figure data-fn="photoswipe">
+    <a href="large-img-001-720x720.jpg" itemprop="contentUrl" data-size="720x720">
+        <img src="large-img-001-720x720-thumb.jpg" alt="Image 1">
+    </a>
+</figure>
+
 
 better readable structure (rich snippets):
 
@@ -117,21 +125,31 @@ pswp template:
         var placeholderSrcString = 'base64';
         var itemNodeName = 'FIGURE';
 
-        function closestElem(el, selector) {
+        function elemIs( el, selector ) {
             var matchesFn;
             // find vendor prefix
-            ['matches','webkitMatchesSelector','mozMatchesSelector','msMatchesSelector','oMatchesSelector'].some(function(fn) {
-                if (typeof document.body[fn] == 'function') {
+            [ 'matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector' ].some( function( fn ) {
+                if ( typeof document.body[ fn ] == 'function' ) {
                     matchesFn = fn;
                     return true;
                 }
                 return false;
-            });
+            } );
+            if ( el[ matchesFn ]( selector ) ) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function closestElem(el, selector) {
             var parent;
             // traverse parents
             while (el) {
                 parent = el.parentElement;
-                if (parent && parent[matchesFn](selector)) {
+                // if (parent && parent[matchesFn](selector)) {
+                if ( parent && elemIs( parent, selector ) ) {
                     return parent;
                 }
                 el = parent;
@@ -142,8 +160,12 @@ pswp template:
         // parse slide data (url, title, size ...) from DOM elements 
         // (children of gallerySelector)
         var parseThumbnailElements = function(el) {
-            // TODO: find figure elems instaed of child nodes
-            var thumbElements = el.getElementsByTagName( itemNodeName ),
+            // find itemNodeName (FIGURE) elems
+            var thumbElements = 
+                    elemIs( el, itemNodeName ) 
+                    ? [ el ]
+                    : el.getElementsByTagName( itemNodeName )
+                ,
                 numNodes = thumbElements.length,
                 items = [],
                 figureEl,
@@ -212,9 +234,13 @@ pswp template:
             var eTarget = e.target || e.srcElement;
 
             // find root element of slide
-            var clickedListItem = closest(eTarget, function(el) {
-                return ( el.tagName && el.tagName.toUpperCase() === itemNodeName );
-            });
+            var clickedListItem = 
+                elemIs( eTarget, itemNodeName )
+                ? eTarget
+                : closest( eTarget, function( el ) {
+                    return ( el.tagName && el.tagName.toUpperCase() === itemNodeName );
+                } )
+            ;
 
             if(!clickedListItem) {
                 return;
@@ -223,10 +249,18 @@ pswp template:
             // find index of clicked item by looping through all child nodes
             // alternatively, you may define index via data- attribute
 
-            // TODO: clickedGallery might be any container but gallery, find closest parent with gallerySelector
-            var clickedGallery = closestElem( clickedListItem, gallerySelector ),
-                // TODO: find all figure elems
-                childNodes = clickedGallery.getElementsByTagName( itemNodeName ),
+            // clickedGallery might be clickedListItem itself or any parent (find closest parent with gallerySelector then)
+            var clickedGallery = 
+                    elemIs( clickedListItem, gallerySelector ) 
+                    ? clickedListItem
+                    : closestElem( clickedListItem, gallerySelector )
+                ,
+                // find all itemNodeName (FIGURE) elems
+                childNodes = 
+                    elemIs( clickedListItem, itemNodeName ) 
+                    ? [ clickedListItem ]
+                    : clickedGallery.getElementsByTagName( itemNodeName )
+                ,
                 numChildNodes = childNodes.length,
                 nodeIndex = 0,
                 index;
@@ -337,15 +371,6 @@ pswp template:
             // Pass data to PhotoSwipe and initialize it
             gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
             gallery.init();
-            
-            // plenty modification
-            /*
-            gallery.listen('beforeChange', function() {
-                if ( gallery.isDragging() ) {
-                }
-            });
-            */
-            // / plenty modification
         };
 
         // loop through all gallery elements and bind events

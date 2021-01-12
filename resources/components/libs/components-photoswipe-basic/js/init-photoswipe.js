@@ -257,7 +257,7 @@ pswp template:
                 ,
                 // find all itemNodeName (FIGURE) elems
                 childNodes = 
-                    elemIs( clickedListItem, itemNodeName ) 
+                    elemIs( clickedListItem, gallerySelector ) 
                     ? [ clickedListItem ]
                     : clickedGallery.getElementsByTagName( itemNodeName )
                 ,

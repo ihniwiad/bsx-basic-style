@@ -250,14 +250,15 @@ pswp template:
             // alternatively, you may define index via data- attribute
 
             // clickedGallery might be clickedListItem itself or any parent (find closest parent with gallerySelector then)
-            var clickedGallery = 
-                    elemIs( clickedListItem, gallerySelector ) 
+            var itemIsGallery = elemIs( clickedListItem, gallerySelector ),
+                clickedGallery = 
+                    itemIsGallery 
                     ? clickedListItem
                     : closestElem( clickedListItem, gallerySelector )
                 ,
                 // find all itemNodeName (FIGURE) elems
                 childNodes = 
-                    elemIs( clickedListItem, gallerySelector ) 
+                    itemIsGallery 
                     ? [ clickedListItem ]
                     : clickedGallery.getElementsByTagName( itemNodeName )
                 ,

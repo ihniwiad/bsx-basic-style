@@ -97,11 +97,20 @@
 	background-color: $bsx-appnav-navbar-bg-color;
 	box-shadow: $bsx-appnav-navbar-box-shadow;
 
+	// TODO: make configurable scroll toggle or mobile absolute desktop fixed
+
 	&.bsx-appnav-fixed-top {
-		@include bsx-appnav-navigation(mobile) {
-			position: absolute;
+		@if $bsx-appnav-fixed-top-mobile-static {
+			// devide mobile absolute desktop fixed
+			@include bsx-appnav-navigation(mobile) {
+				position: absolute;
+			}
+			@include bsx-appnav-navigation(desktop) {
+				position: fixed;
+			}
 		}
-		@include bsx-appnav-navigation(desktop) {
+		@else {
+			// always fixed
 			position: fixed;
 		}
 		top: 0;
@@ -110,6 +119,7 @@
 		z-index: $bsx-appnav-navbar-z-index;
 	}
 }
+
 
 
 // MOBILE NAVBAR

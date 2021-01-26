@@ -24,7 +24,7 @@
         options = $.extend( {}, defaults, options );
     
         function _positionToTopButton() {
-            if ( Utils.$document.scrollTop() > 100 ) {
+            if ( Utils.$document.scrollTop() > options.threshold ) {
                 if ( ! $elem.is( '.' + options.visibleClass ) ) {
                     $elem.addClass( options.visibleClass );
                 }
@@ -48,7 +48,7 @@
     // init
     Utils.$window.on( Utils.events.initJs, function() {
 
-        Utils.$functionElems.filter( '[data-fn="to-top-wrapper"]' ).toggleToTopButton();
+        Utils.$functionElems.filter( '[data-fn~="to-top-wrapper"]' ).toggleToTopButton();
 
     } );
 

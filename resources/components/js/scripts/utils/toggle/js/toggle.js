@@ -13,7 +13,7 @@
 ( function( $, Utils ) {
 
     // toggle (e.g. main navigation container)
-    $.fn.toggle = function( options ) {
+    $.fn.toggle = function() {
 
         var defaults = {
             openedClass: Utils.classes.open,
@@ -21,19 +21,25 @@
             animatingClass: Utils.classes.animating,
             triggerOpenedClass: Utils.classes.active,
             triggerClosedClass: '',
+            bodyOpenedClass: '',
+            bodyClosedClass: '',
             openCallback: function() {},
             closeCallback: function() {},
             openedCallback: function() {},
             closedCallback: function() {}
         };
 
-        options = $.extend( {}, defaults, options );
-
         var $elems = $( this );
 
         $elems.each( function() {
 
             var $elem = $( this );
+
+            // get options from attr
+            var options = $elem.getOptionsFromAttr();
+
+            options = $.extend( {}, defaults, options );
+
             var targetSelector = $elem.attr( Utils.attributes.target ) || '';
             var $target = ( Utils.$targetElems.filter( targetSelector ).lenght > 0 ) ? Utils.$targetElems.filter( targetSelector ) : $( targetSelector );
             var transitionDuration = $target.getTransitionDuration();
@@ -53,6 +59,12 @@
                         .addClass( options.triggerOpenedClass )
                         .ariaExpanded( 'true' )
                     ;
+                    if ( options.bodyOpenedClass ) {
+                        Utils.$body.addClass( options.bodyOpenedClass );
+                    }
+                    if ( options.bodyClosedClass ) {
+                        Utils.$body.removeClass( options.bodyClosedClass );
+                    }
                     options.openCallback();
 
                     // set & remove 'options.animatingClass'
@@ -69,6 +81,12 @@
                         .removeClass( options.triggerOpenedClass )
                         .ariaExpanded( 'false' )
                     ;
+                    if ( options.bodyOpenedClass ) {
+                        Utils.$body.removeClass( options.bodyOpenedClass );
+                    }
+                    if ( options.bodyClosedClass ) {
+                        Utils.$body.addClass( options.bodyClosedClass );
+                    }
                     options.closeCallback();
                     
                     // set & remove 'options.animatingClass'

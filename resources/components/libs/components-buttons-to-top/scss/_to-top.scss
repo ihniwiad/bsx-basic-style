@@ -13,6 +13,7 @@
 	opacity: 0;
 	transition: opacity 0.4s ease-in-out;
 
+	// deprecated, will be replaces by .body.scroll-away-top .to-top-wrapper
 	&.show {
 		height: auto;
 		opacity: 1;
@@ -21,6 +22,11 @@
 	> .btn {
 		margin: 0.5em;
 	}
+}
+
+body.scroll-away-top .to-top-wrapper {
+	height: auto;
+	opacity: 1;
 }
 
 // resolve collisions with footer content

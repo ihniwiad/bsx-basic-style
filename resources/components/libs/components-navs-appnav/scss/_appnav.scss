@@ -28,6 +28,17 @@
 }
 
 
+// SCROLL TOGGLE APPNAV (requires scroll-class-names.js)
+
+.bsx-appnav-navbar-scroll-toggle {
+	transition: $bsx-appnav-navbar-scroll-toggle-transition;
+}
+// body.scroll-bottom .bsx-appnav-navbar-scroll-toggle
+body.scroll-away-top.scroll-down:not( .nav-open ) .bsx-appnav-navbar-scroll-toggle {
+    transform: translate3d(0, -100%, 0);
+}
+
+
 // NAVBAR COLLAPSE
 
 // mobile navbar collapse
@@ -41,6 +52,8 @@
 		top: 0;
 		left: 0;
 		bottom: 0;
+		// force ios to render correctly when nav appears after header appeared on scroll bottom
+		min-height: 100vh;
 		width: $bsx-appnav-mobile-collapse-width;
 		max-width: $bsx-appnav-mobile-collapse-max-width;
 		background-color: $bsx-appnav-mobile-collapse-bg-color;

@@ -5,7 +5,8 @@
     var Scrolling = {
         target: Utils.$body,
         position: 0,
-        direction: ''
+        direction: '',
+        place: ''
     };
 
     Scrolling.getPosition = function() {
@@ -28,6 +29,14 @@
 
     Scrolling.init = function() {
 
+        // TEST
+        // $( window ).on('scrollUp', function() { console.log( 'scrollUp' ) })
+        // $( window ).on('scrollDown', function() { console.log( 'scrollDown' ) })
+        // $( window ).on('scrollTop', function() { console.log( 'scrollTop' ) })
+        // $( window ).on('scrollNearTop', function() { console.log( 'scrollNearTop' ) })
+        // $( window ).on('scrollAwayTop', function() { console.log( 'scrollAwayTop' ) })
+        // $( window ).on('scrollBottom', function() { console.log( 'scrollBottom' ) })
+
         var defaults = {
             scrollDownClassName: 'scroll-down',
             scrollUpClassName: 'scroll-up',
@@ -35,7 +44,15 @@
             scrollBottomClassName: 'scroll-bottom',
             scrollNearTopClassName: 'scroll-near-top',
             scrollAwayTopClassName: 'scroll-away-top',
-            nearTopThreshold: 100
+            nearTopThreshold: 100,
+            triggerEvents: true,
+            scrollDownEventName: 'scrollDown',
+            scrollUpEventName: 'scrollUp',
+            scrollTopEventName: 'scrollTop',
+            scrollBottomEventName: 'scrollBottom',
+            scrollNearTopEventName: 'scrollNearTop',
+            scrollAwayTopEventName: 'scrollAwayTop'
+
         };
 
         var $elem = $( Scrolling.target );
@@ -59,6 +76,11 @@
             if ( currentDirection && Scrolling.direction != currentDirection ) {
                 if ( currentDirection == 'down' ) {
                     // scrolling down
+
+                    if ( options.triggerEvents ) {
+                        Utils.$window.trigger( options.scrollDownEventName );
+                    }
+                    
                     if ( ! $elem.is( '.' + options.scrollDownClassName ) ) {
                         $elem.addClass( options.scrollDownClassName );
                     }
@@ -68,6 +90,11 @@
                 }
                 else {
                     // scrolling up
+                    
+                    if ( options.triggerEvents ) {
+                        Utils.$window.trigger( options.scrollUpEventName );
+                    }
+                    
                     if ( ! $elem.is( '.' + options.scrollUpClassName ) ) {
                         $elem.addClass( options.scrollUpClassName );
                     }
@@ -79,6 +106,11 @@
 
             // check & set top class names
             if ( currentPosition == 0 ) {
+                if ( options.triggerEvents && Scrolling.place != 'top' ) {
+                    Utils.$window.trigger( options.scrollTopEventName );
+                    Scrolling.place = 'top';
+                }
+                    
                 if ( ! $elem.is( '.' + options.scrollTopClassName ) ) {
                     $elem.addClass( options.scrollTopClassName );
                 }
@@ -89,20 +121,14 @@
                 }
             }
 
-            // check & set bottom class name
-            if ( currentPosition + Utils.$window.height() >= Scrolling.target.height() ) {
-                if ( ! $elem.is( '.' + options.scrollBottomClassName ) ) {
-                    $elem.addClass( options.scrollBottomClassName );
-                }
-            }
-            else {
-                if ( $elem.is( '.' + options.scrollBottomClassName ) ) {
-                    $elem.removeClass( options.scrollBottomClassName );
-                }
-            }
-
             // check & set near away / class names
             if ( currentPosition < options.nearTopThreshold ) {
+                if ( options.triggerEvents && Scrolling.position != 0 && Scrolling.place != 'near-top' ) {
+                    // do not trigger near-top event if top
+                    Utils.$window.trigger( options.scrollNearTopEventName );
+                    Scrolling.place = 'near-top';
+                }
+
                 if ( ! $elem.is( '.' + options.scrollNearTopClassName ) ) {
                     $elem.addClass( options.scrollNearTopClassName );
                 }
@@ -111,11 +137,35 @@
                 }
             }
             else {
+                if ( options.triggerEvents && Scrolling.place != 'away-top' ) {
+                    Utils.$window.trigger( options.scrollAwayTopEventName );
+                    Scrolling.place = 'away-top';
+                }
+
                 if ( ! $elem.is( '.' + options.scrollAwayTopClassName ) ) {
                     $elem.addClass( options.scrollAwayTopClassName );
                 }
                 if ( $elem.is( '.' + options.scrollNearTopClassName ) ) {
                     $elem.removeClass( options.scrollNearTopClassName );
+                }
+            }
+
+            // check & set bottom class name
+            // place AFTER checking away-top to mak bottom event last while scrolling down (after away-top)
+            // round body height since might be larger than sum of both rounded scroll position and window height
+            if ( currentPosition + Utils.$window.height() >= Math.round( Scrolling.target.height() ) ) {
+                if ( options.triggerEvents && Scrolling.place != 'bottom' ) {
+                    Utils.$window.trigger( options.scrollBottomEventName );
+                    Scrolling.place = 'bottom';
+                }
+                    
+                if ( ! $elem.is( '.' + options.scrollBottomClassName ) ) {
+                    $elem.addClass( options.scrollBottomClassName );
+                }
+            }
+            else {
+                if ( $elem.is( '.' + options.scrollBottomClassName ) ) {
+                    $elem.removeClass( options.scrollBottomClassName );
                 }
             }
 

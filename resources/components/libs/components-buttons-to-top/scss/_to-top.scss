@@ -1,33 +1,27 @@
 // style
 
 
-
-
 .to-top-wrapper {
 	position: fixed;
 	z-index: $bsx-totop-z-index;
 	right: 0;
 	bottom: 0;
-	height: 0;
-	overflow: hidden;
-	opacity: 0;
-	transition: opacity 0.4s ease-in-out;
+	transition: $bsx-totop-transition;
+	transform: translate3d(0, 100%, 0);
 
 	// deprecated, will be replaces by .body.scroll-away-top .to-top-wrapper
 	&.show {
-		height: auto;
-		opacity: 1;
+		transform: translate3d(0, 0, 0);
 	}
 
 	> .btn {
-		margin: 0.5em;
+		margin: $bsx-totop-margin;
 	}
 }
 
-body.scroll-away-top .to-top-wrapper {
-	height: auto;
-	opacity: 1;
+body.scroll-away-top.scroll-up .to-top-wrapper {
+	transform: translate3d(0, 0, 0);
 }
 
 // resolve collisions with footer content
-@include createSpacerForToTop();
+// @include createSpacerForToTop();

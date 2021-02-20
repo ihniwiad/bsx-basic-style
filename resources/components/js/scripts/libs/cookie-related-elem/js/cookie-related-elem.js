@@ -1,4 +1,5 @@
 /*
+<!-- if using remote trigger use aria-controls and aria-expanded together (trigger) with aria-labeledby (popup) -->
 <div class="fixed-banner fixed-banner-bottom fixed-banner-closable bg-warning text-black d-none" tabindex="-1" role="dialog" hidden data-fn="cookie-related-elem" data-fn-options="{ cookieName: 'privacyBannerHidden', cookieExpiresDays: 365, hiddenCookieValue: '1', hiddenClass: 'd-none' }">
 	<div class="container py-3">
 		<div class="mb-2">
@@ -46,6 +47,13 @@
 
 			var $elem = $( this );
 
+      // set trigger aria-expanded
+      var id = $elem.attr( 'id' );
+      var $triggers = Utils.$functionElems.filter( '[aria-controls="' + id + '"]' );
+      if ( $triggers.length > 0 ) {
+          $triggers.ariaExpanded( true );
+      }
+
 			if ( options.focusOnOpen ) {
 				if ( CookieRelatedElem.$focussedElem === null ) {
 					CookieRelatedElem.$focussedElem = $( Utils.$document.activeElement );
@@ -68,6 +76,13 @@
 		$.fn._hideElem = function() {
 
 			var $elem = $( this );
+
+      // set trigger aria-expanded
+      var id = $elem.attr( 'id' );
+      var $triggers = Utils.$functionElems.filter( '[aria-controls="' + id + '"]' );
+      if ( $triggers.length > 0 ) {
+          $triggers.ariaExpanded( false );
+      }
 			
 			if ( !! options.hiddenClass ) {
 				$elem.addClass( options.hiddenClass );

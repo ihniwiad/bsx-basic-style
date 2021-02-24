@@ -70,14 +70,14 @@
 	}
 
 	// fix ios missing body click event (set event to all div elements which are children of body)
-	if ( isIos ) {
-		var bodyChildren = document.body.children;
-		for ( i = 0; i < bodyChildren.length; i++ ) {
-			if ( bodyChildren[ i ].tagName == 'DIV' ) {
-				bodyChildren[ i ].setAttribute( 'onclick', 'void(0);' );
-			}
-		}
-	}
+	// if ( isIos ) {
+	// 	var bodyChildren = document.body.children;
+	// 	for ( i = 0; i < bodyChildren.length; i++ ) {
+	// 		if ( bodyChildren[ i ].tagName == 'DIV' ) {
+	// 			bodyChildren[ i ].setAttribute( 'onclick', 'void(0);' );
+	// 		}
+	// 	}
+	// }
 
 
 	var AnalyzeBrowser = {

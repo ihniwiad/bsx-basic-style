@@ -44,6 +44,16 @@ EXAMPLE 2:
 
 ( function( $, Utils ) {
 
+    // fix ios missing body click event (set event to all elements which are children of body)
+    if ( Utils.AnalyzeBrowser.isIos ) {
+        var bodyChildren = document.body.children;
+        for ( i = 0; i < bodyChildren.length; i++ ) {
+            // if ( bodyChildren[ i ].tagName == 'DIV' ) {
+                bodyChildren[ i ].setAttribute( 'onclick', 'void(0);' );
+            // }
+        }
+    }
+
     // dropdown multilevel (e.g. main navigation lists)
     $.fn.dropdownMultilevel = function( options ) {
 

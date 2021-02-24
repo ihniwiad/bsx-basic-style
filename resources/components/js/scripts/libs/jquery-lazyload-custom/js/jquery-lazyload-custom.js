@@ -13,6 +13,8 @@
  * 
  */
 
+// TODO: resize and set src / srcset only if empty, do no resize if svg placeholder
+
 ( function( $, window, document, Utils ) {
     var $window = $(window);
     var $document = $(document);
@@ -155,37 +157,24 @@
 
                 var $img = $( this );
 
-                if ( 
-                    (
-                        $self.attr( 'src' ) == ''
-                        || $self.attr( 'src' ) == settings.placeholder 
-                    )
-                    && !! newImgWidth && !! newImgHeight 
-                ) {
+                // set or reset to intended size (always, no need to remove style, just overwrite immediately)
+                $img.css( { width: newImgWidth + 'px', height: newImgHeight + 'px' } );
+                //console.log( 'resizeUnloadImg – width / height SET (1) (' + $img.attr( 'data-src' ) + ')' );
 
-                    // set or reset to intended size (always, no need to remove style, just overwrite immediately)
-                    $img.css( { width: newImgWidth + 'px', height: newImgHeight + 'px' } );
-                    //console.log( 'resizeUnloadImg – width / height SET (1) (' + $img.attr( 'data-src' ) + ')' );
+                // check for css size limitation
+                var cssImgWidth = parseInt( $img.css( 'width' ) );
 
-                    // check for css size limitation
-                    var cssImgWidth = parseInt( $img.css( 'width' ) );
-
-                    // reduce size after set if nessesary
-                    if ( cssImgWidth != newImgWidth ) {
-                        var calcImgWidth = cssImgWidth;
-                        var calcImgHeight = newImgHeight / newImgWidth * cssImgWidth;
-                        // adapt
-                        $img.css( { width: calcImgWidth + 'px', height: calcImgHeight + 'px' } );
-                        //console.log( 'resizeUnloadImg – width / height SET (2) (' + $img.attr( 'data-src' ) + ')' );
-                    }
-
-                    // trigger scroll since other unload images might have been appeared during resizing current image
-                    $window.trigger( 'scroll' );
-
+                // reduce size after set if nessesary
+                if ( cssImgWidth != newImgWidth ) {
+                    var calcImgWidth = cssImgWidth;
+                    var calcImgHeight = newImgHeight / newImgWidth * cssImgWidth;
+                    // adapt
+                    $img.css( { width: calcImgWidth + 'px', height: calcImgHeight + 'px' } );
+                    //console.log( 'resizeUnloadImg – width / height SET (2) (' + $img.attr( 'data-src' ) + ')' );
                 }
-                else {
-                    //console.log( '----- called resize but img altrady loaded (or no sizes given) – data-src: ' + $self.attr( 'data-' + settings.data_attribute ) );
-                }
+
+                // trigger scroll since other unload images might have been appeared during resizing current image
+                $window.trigger( 'scroll' );
             }
 
             // get image sizes (from width / height or data-with / data-height)
@@ -246,7 +235,14 @@
 
                 //console.log( '--- initial sizes: ' + origImgWidth + ' x ' + origImgHeight );
 
-                if ( !! origImgWidth && !! origImgHeight ) {
+                if ( 
+                    (
+                        $self.attr( 'src' ) == ''
+                        || $self.attr( 'src' ) == settings.placeholder 
+                    )
+                    && !! origImgWidth && !! origImgHeight 
+                ) {
+                    // resize only if src is empty or png placeholder and width and height is given
 
                     // initial resize
                     $self.resizeUnloadImg( origImgWidth, origImgHeight );

@@ -1,0 +1,6 @@
+// style
+
+
+img[data-fn="lazyload"][src*="data:image/svg+xml;base64"] {
+	background: $bsx-lazy-img-bg;
+}

@@ -1,0 +1,14 @@
+{
+	"scss": {
+		"addVariables": [
+			{
+				"key": "/scss/_lazy-img-var.scss"
+			}
+		],
+		"use": [
+			{
+				"key": "/scss/_lazy-img.scss"
+			}
+		]
+	}
+}
